@@ -5,9 +5,7 @@ This workshop will give you an introduction to building enterprise Java applicat
 
 * SSH access to heroku.com
     1. If you have telnet installed you can verify this by running the following in a command prompt / terminal:
-
             telnet heroku.com 22
-
     2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
 * Java SE 6 - JDK: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * Eclipse 3.7 or newer (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/](http://www.eclipse.org/downloads/)
