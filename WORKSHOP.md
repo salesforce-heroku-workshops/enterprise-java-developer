@@ -411,7 +411,7 @@ You can now deploy your changes on Heroku.  First commit the changes to your loc
 1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
 2. Select `Team`
 3. Select `Commit...`
-4. Enter a `Commit message` like `Flipped first and last name`
+4. Enter a `Commit message` like `Added Twitter Handle`
 5. Select `Commit`
 
 Now push your changes to Heroku
@@ -425,10 +425,32 @@ Test the new version of the application on Heroku by navigating to `https://your
 
 Chapter 4: Distributed Sessions on Heroku
 -----------------------------------------
-* Distributed Sessions with Memcache
-* Adding Memcache addon to your app
-* Updating Procfile to use "memcache" option
-* Deploying the changes to Heroku
+
+Heroku's Dynos are meant to be used in a stateless fashion for instant scalability and updates.  Some Java applications use session state to manage context across requests.  Spring Security uses session state to identify a user across requests.  To handle the use of session state you need to externalize the state.  Since this application uses `webapp-runner` this is very easy to by adding the Memcache Heroku Add-on and configuring `webapp-runner` to use it.
+
+1. In your browser navigate to [https://api.heroku.com/login](https://api.heroku.com/login) and login
+2. Navigate to [https://addons.heroku.com/memcache](https://addons.heroku.com/memcache)
+3. Select `Add` for the free 5MB plan
+4. Select the application from the drop-down
+5. Select `Select`
+6. Open the `Procfile` and change line 1 to be:
+
+        web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT --session_manager memcache target/*.war
+
+    This enables `webapp-runner` to use the provisioned Memcache service for externalized session storage
+
+Now commit the changes to the local Git repository and push them to Heroku:
+
+1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
+2. Select `Team`
+3. Select `Commit...`
+4. Enter a `Commit message` like `Switched on Memcache session management`
+5. Select `Commit`
+6. Select the project's context menu
+7. Select `Team`
+8. Select `Push to Upstream`
+
+Verify that your application still works on Heroku.
 
 
 Chapter 5: Real time Push notifications
