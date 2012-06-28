@@ -10,13 +10,6 @@ This workshop will give you an introduction to building enterprise Java applicat
     2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
 * Java SE 6 - JDK: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * Eclipse 3.7 or newer (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/](http://www.eclipse.org/downloads/)
-* Maven Eclipse Plugin
-    1. In Eclipse select `Help` bar
-    2. Select `Eclipse Marketplace...`
-    3. In the `Find` field enter `Maven`
-    4. Select `Go`
-    5. Select `Install` on the `Maven Integration for Eclipse` item
-    6. Follow the dialogs to complete the installation
 * Heroku Eclipse Plugin
     1. In Eclipse select `Help` bar
     2. Select `Install New Software...`
