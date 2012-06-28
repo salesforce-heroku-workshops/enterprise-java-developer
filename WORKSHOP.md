@@ -100,7 +100,12 @@ Add a new `Person` to the database to verify the application is working correctl
 
 Back in Eclipse you can view the details about the application on Heroku:
 
-1. *** TODO ***
+1. Select `Window` from the menu bar
+2. Select `Show View`
+3. Expand `Heroku` in the list
+4. Select `My Heroku Applications`
+5. Select `Ok`
+6. Double-click on your application in the list to view it's details
 
 This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
 
@@ -341,10 +346,10 @@ Now that OAuth is configured on Salesforce.com we can run this application local
 Now that the application is up and running you can test it in your browser by visiting:  
 [http://localhost:8080/](http://localhost:8080/)
 
-The index page is unprotected and should load without having to authenticate.  Now load the "People" page by visiting:  
-[http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons)
+The index page is unprotected and should load without having to authenticate.  Now load the "Contacts" page by visiting:  
+[http://localhost:8080/sfdc/contacts](http://localhost:8080/sfdc/contacts)
 
-You should now be redirected to Salesforce.com's OAuth handshake page.  Select `Allow` to do the OAuth handshake.  You will then be redirected back to the "People" page which should now display a list of your Salesforce.com contacts.  (Note: Developer Edition accounts have a few contacts out-of-the-box.)  Test that creating and deleting contacts also works.
+You should now be redirected to Salesforce.com's OAuth handshake page.  Select `Allow` to do the OAuth handshake.  You will then be redirected back to the "Contacts" page which should now display a list of your Salesforce.com contacts.  (Note: Developer Edition accounts have a few contacts out-of-the-box.)  Test that creating and deleting contacts also works.
 
 The application is already running on Heroku but in order for it to work properly you need to configure the `SFDC_OAUTH_CLIENT_ID` and `SFDC_OAUTH_CLIENT_SECRET` environment variables.  You will need to setup a new `Remote Access Application` on Salesforce.com that has the `Callback URL` for the application on Heroku.
 
@@ -364,7 +369,7 @@ You now have a new `Consumer Key` and `Consumer Secret` that will be used for yo
 2. Select the `Environment Variables` tab
 3. *** TODO: Waiting on Eclipse plugin support ***
 
-To test the application on Heroku navigate to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Opening the "People" page should trigger the OAUTH handshake and then display your contacts.
+To test the application on Heroku navigate to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Opening the "Contacts" page should trigger the OAUTH handshake and then display your contacts.
 
 *** TODO: Screenshot ***
 
@@ -393,16 +398,16 @@ Now that the field has been added, test it by adding a Twitter handle to a Conta
 
 You will now need to modify your Java application to display the new Twitter handle for the contacts.
 
-1. Open the `src/main/java/com/example/controller/PersonController.java` file and locate the line:
+1. Open the `src/main/java/com/example/controller/ContactsController.java` file and locate the line:
 
-        map.put("personList", service.query("select Id,FirstName,LastName,Email FROM Contact"));
+        map.put("contactList", service.query("select Id,FirstName,LastName,Email FROM Contact"));
 
 2. Update the SOQL query to include the new `TwitterHandle` field:
 
-        map.put("personList", service.query("select Id,FirstName,LastName,Email,TwitterHandle__c FROM Contact"));
+        map.put("contactList", service.query("select Id,FirstName,LastName,Email,TwitterHandle__c FROM Contact"));
 
     The `__c` indicates that the field is a custom field.
-3. Open the `src/main/webapp/WEB-INF/jsp/persons.jsp` file
+3. Open the `src/main/webapp/WEB-INF/jsp/contacts.jsp` file
 4. Add a new line beneath:
 
         <th>Email</th>
@@ -413,13 +418,13 @@ You will now need to modify your Java application to display the new Twitter han
 
 5. Add a new line beneath:
 
-        <td>${person.getField("email").value}</td>
+        <td>${contact.getField("email").value}</td>
 
     Containing:
 
-        <td><a href="http://twitter.com/${person.getField("twitterhandle__c").value}">${person.getField("twitterhandle__c").value}</a></td>
+        <td><a href="http://twitter.com/${contact.getField("twitterhandle__c").value}">${contact.getField("twitterhandle__c").value}</a></td>
 
-Test your change locally by restarting the local server and opening [http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons) in your browser.  You should see a new column containing the Twitter handle.
+Test your change locally by restarting the local server and opening [http://localhost:8080/sfdc/contacts](http://localhost:8080/sfdc/contacts) in your browser.  You should see a new column containing the Twitter handle.
 
 You can now deploy your changes on Heroku.  First commit the changes to your local Git repository:
 
@@ -435,7 +440,7 @@ Now push your changes to Heroku
 2. Select `Team`
 3. Select `Push to Upstream`
 
-Test the new version of the application on Heroku by navigating to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Open the "People" page and you should now see the new `Twitter` column.
+Test the new version of the application on Heroku by navigating to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Open the "Contacts" page and you should now see the new `Twitter` column.
 
 
 Chapter 4: Distributed Sessions on Heroku
@@ -521,20 +526,20 @@ Create a new file named `src/main/java/com/example/services/PubnubService.java` 
 
 	}
 
-In the `src/main/java/com/example/controller/PersonController.java` file add these import statements:
+In the `src/main/java/com/example/controller/ContactsController.java` file add these import statements:
 
     import com.example.services.PubnubService;
     import org.springframework.http.MediaType;
     import org.springframework.web.bind.annotation.ResponseBody;
 
-Also in the `PersonController` class add a new method to retreive a Person as JSON:
+Also in the `ContactsController` class add a new method to retrieve a `Contact` as JSON:
 
     @RequestMapping(value = "/{id}/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Map<String, Object> getPersonDetail(@PathVariable("id") String id) {
+    public @ResponseBody Map<String, Object> getContactDetail(@PathVariable("id") String id) {
         return service.fetch("Contact", id).getRaw();
     }
 
-Then in the `editPerson` method, below the line containing:
+Then in the `editContact` method, below the line containing:
 
     service.update(record);
 
@@ -550,7 +555,7 @@ Add the following:
 
     <script src="/resources/js/bootstrap.min.js"></script>
 
-In the `src/main/webapp/WEB-INF/jsp/persons.jsp` file, below the line containing:
+In the `src/main/webapp/WEB-INF/jsp/contacts.jsp` file, below the line containing:
 
     <jsp:include page="header.jsp"/>
 
@@ -560,11 +565,11 @@ Add the following:
     <script src="https://pubnub.s3.amazonaws.com/pubnub-3.1.min.js"></script>
 
     <script>
-    function updatePerson(message) {
-        $.get("persons/" + message.id + "/json", function(person) {
+    function updateContact(message) {
+        $.get("contacts/" + message.id + "/json", function(contact) {
             var alert = $("<div>").addClass("alert alert-info");
             alert.append($("<a>").addClass("close").attr("data-dismiss", "alert").html("&times;"));
-            alert.append($("<h4>").addClass("alert-heading").text("Contact " + person.FIRSTNAME + " " + person.LASTNAME + " Updated!"));
+            alert.append($("<h4>").addClass("alert-heading").text("Contact " + contact.FIRSTNAME + " " + contact.LASTNAME + " Updated!"));
             $(".span8").prepend(alert);
         })
     }
@@ -572,18 +577,18 @@ Add the following:
 
 And below the line containing:
 
-    <c:forEach items="${personList}" var="person">
+    <c:forEach items="${contactList}" var="contact">
 
 Add the following:
 
     <script>
     PUBNUB.subscribe({
-        channel: "${person.getField("id").value}",
-        callback: updatePerson
+        channel: "${contact.getField("id").value}",
+        callback: updateContact
     });
     </script>
 
-Now your application will display a message on the "People" page each time someone updates a person through the application.  That message will be pushed out in real-time to all of the users of the application.
+Now your application will display a message on the "Contacts" page each time someone updates a `Contact` through the application.  That message will be pushed out in real-time to all of the users of the application.
 
 To configure PubNub you will need to add the PubNub Heroku Add-on then obtain and set the required environment variables:
 
@@ -616,7 +621,7 @@ First add these to your local run configuration so you can test locally:
 17. Select `Ok`
 18. Select `Run` to start the application
 
-To test the real-time push you will need two browser windows.  Open both to the [http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons) page.  Then in one browser select a contact to edit (by selecting the contact name).  Then select edit, make a change, and select `Save`.  In your other browser you should see a notification that the Contact was updated.
+To test the real-time push you will need two browser windows.  Open both to the [http://localhost:8080/sfdc/contacts](http://localhost:8080/sfdc/contacts) page.  Then in one browser select a contact to edit (by selecting the contact name).  Then select edit, make a change, and select `Save`.  In your other browser you should see a notification that the Contact was updated.
 
 Before you deploy these changes on Heroku set the environment variables for PubNub:
 
