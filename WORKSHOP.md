@@ -571,6 +571,7 @@ Add the following:
 Now your application will display a message on the "People" page each time someone updates a person through the application.  That message will be pushed out in real-time to all of the users of the application.
 
 To configure PubNub you will need to add the PubNub Heroku Add-on then obtain and set the required environment variables:
+
 1. Navigate in your browser to [https://addons.heroku.com/pubnub](https://addons.heroku.com/pubnub)
 2. Select `Add` for the free "Minimal" level of service
 3. Select your application from the drop-down
@@ -580,6 +581,7 @@ To configure PubNub you will need to add the PubNub Heroku Add-on then obtain an
 The `PUBLISH KEY`, `SUBSCRIBE KEY`, and `SECRET KEY` values will need to be added to your local runtime configuration and to your environment variables on Heroku.
 
 First add these to your local run configuration so you can test locally:
+
 1. If you have a webapp-runner actively running then terminate it in Eclipse
 2. In Eclipse select the `Run` menu
 3. Select `Run Configurations...`
@@ -602,11 +604,13 @@ First add these to your local run configuration so you can test locally:
 To test the real-time push you will need two browser windows.  Open both to the [http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons) page.  Then in one browser select a contact to edit (by selecting the contact name).  Then select edit, make a change, and select `Save`.  In your other browser you should see a notification that the Contact was updated.
 
 Before you deploy these changes on Heroku set the environment variables for PubNub:
+
 1. Locate the application in the `My Heroku Applications` view and double-click on the application
 2. Select the `Environment Variables` tab
 3. *** TODO: Waiting on Eclipse Plugin env var support ***
 
 Now deploy your changes:
+
 1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
 2. Select `Team`
 3. Select `Commit...`
