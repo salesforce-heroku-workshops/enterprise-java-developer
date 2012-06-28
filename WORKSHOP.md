@@ -274,30 +274,153 @@ Now deploy your changes on Heroku (like before) by committing the changes to you
 
 
 Chapter 3: Integrating with Force.com
------------------------------------
-* Clone the "Spring MVC + Force.com template"
-* Setting up Remote Access (Salesforce.com screenshots)
-* Local
-* Heroku
-* Adding the environment variables on Heroku
-* OAuth Key, Secret
-* Walkthrough of the application
-* dependencies
-* Spring config - OAuth
-* web.xml - Filters
-* Code walkthrough (DAO)
-* Running your application locally
-* Run configuration
-* Setting up Environment config (OAUTH Key, Secret)
-* Test your your app locally
-* Testing on Heroku
-* Make a change: Adding a "Twitter handle" to Contact
-* Adding a new field to contact
-* Updating Person.java to include the new field
-* Updating the DAO (SOQL Query)
-* Modifying the JSP to include Twitter handle
-* Deploying your changes to Heroku
-* Testing your app on Heroku
+-------------------------------------
+
+Now that you've learned the basics of deploying Java apps on Heroku you will deploy a Java application that integrates with Force.com through RESTful APIs.
+
+Start by creating a new project from the `Spring and Force.com` *** TODO: Need final name *** template:
+
+1. From the Eclipse menu bar select File
+2. Select New
+3. Select Project
+4. Expand the `Heroku` section
+5. Select `Create Heroku App from Template`
+6. Select `Next`
+7. If prompted for your `secure storage password` enter it and select `Ok`
+8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only use alpha-numeric characters and dashes.  Enter that name in the `Application Name` field.
+9. Select `Next`
+10. Select `Spring and Force.com` *** TODO: Need final name *** *** TODO: Need this template app in list ***
+11. Select `Finish`
+
+This template application uses OAUTH to authenticate a user with Force.com.  To setup OAUTH you will need to configure a remote access application on Force.com.
+
+1. Login to [Salesforce.com](http://salesforce.com)
+2. Select your name in the top right and select `Setup`
+3. On the left, expand `Develop` and select `Remote Access`
+4. Select `New` to create a new Remote Access Application
+5. In the `Application` field enter `local-spring`
+6. In the `Contact Email` field enter your email address
+7. Enter `http://localhost:8080/_auth` in the `Callback URL` field
+8. Select `Save`
+9. Leave the `Remote Access Detail` page open because shortly you will need some information from it
+
+Now that OAuth is configured on Salesforce.com we can run this application locally to test it.
+
+1. In Eclipse select the `Run` menu
+2. Select `Run Configurations...`
+3. Select `Java Application`
+4. Select the `New launch configuration` icon (above the filter field)
+5. In the `Name` field enter `webapp-runner for x` (replacing x with your project name)
+6. In the `Main class` field enter `webapp.runner.launch.Main`
+7. Select the `Browse...` button next to the `Project` field
+8. Select your project from the list
+9. Select the `Arguments` tab
+10. In the `Program arguments` field enter `src/main/webapp`  *** TODO: VERIFY ON WINDOWS ***
+11. Select the `Environment` tab
+12. Select `New`
+13. In the `Name` field enter `SFDC_OAUTH_CLIENT_ID`
+14. Retrieve the `Consumer Key` value from the `Remote Access Detail` page on Salesforce.com then copy and paste it into the `Value` field
+15. Select `Ok`
+16. Select `New`
+17. In the `Name` field enter `SFDC_OAUTH_CLIENT_SECRET`
+18. Retrieve the `Consumer Secret` value from the `Remote Access Detail` page then copy and paste it into the `Value` field
+19. Select `Ok`
+20. Select `Run` to start the application
+
+Now that the application is up and running you can test it in your browser by visiting:  
+[http://localhost:8080/](http://localhost:8080/)
+
+The index page is unprotected and should load without having to authenticate.  Now load the "People" page by visiting:  
+[http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons)
+
+You should now be redirected to Salesforce.com's OAuth handshake page.  Select `Allow` to do the OAuth handshake.  You will then be redirected back to the "People" page which should now display a list of your Salesforce.com contacts.  (Note: Developer Edition accounts have a few contacts out-of-the-box.)  Test that creating and deleting contacts also works.
+
+The application is already running on Heroku but in order for it to work properly you need to configure the `SFDC_OAUTH_CLIENT_ID` and `SFDC_OAUTH_CLIENT_SECRET` environment variables.  You will need to setup a new `Remote Access Application` on Salesforce.com that has the `Callback URL` for the application on Heroku.
+
+1. Login to [Salesforce.com](http://salesforce.com)
+2. Select your name in the top right and select `Setup`
+3. On the left, expand `Develop` and select `Remote Access`
+4. Select `New` to create a new Remote Access Application
+5. In the `Application` field enter `local-spring`
+6. In the `Contact Email` field enter your email address
+7. Enter `https://yourappname.herokuapp.com/_auth` in the `Callback URL` field (make sure you specify `https` as the protocol)
+8. Select `Save`
+9. Leave the `Remote Access Detail` page open because shortly you will need some information from it
+
+You now have a new `Consumer Key` and `Consumer Secret` that will be used for your app on Heroku.  Those values will need to be set as environment variables on your Heroku application.
+
+1. Locate the application in the `My Heroku Applications` view and double-click on the application
+2. Select the `Environment Variables` tab
+3. *** TODO: Waiting on Eclipse plugin support ***
+
+To test the application on Heroku navigate to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Opening the "People" page should trigger the OAUTH handshake and then display your contacts.
+
+*** TODO: Screenshot ***
+
+Now that the application is working lets make a simple modification to it.  Lets add a Twitter handle field to the `Contact` object on Salesforce.com:
+1. Login to [Salesforce.com](http://salesforce.com)
+2. Select your name in the top right and select `Setup`
+3. On the left, expand `Customize` then expand `Contacts`
+4. Select `Fields`
+5. Next to `Contact Custom Fields & Relationships` select `New`
+6. Select `Text` as the data type
+7. Select `Next`
+8. In the `Field Label` field enter `TwitterHandle`
+9. In the `Length` field enter `64`
+10. Select `Next`
+11. Select `Next`
+12. Select `Save`
+
+Now that the field has been added, test it by adding a Twitter handle to a Contact:
+1. Select the `Contacts` tab
+2. Next to the `All Contacts` drop-down select `Go`
+3. Pick a contact and select `Edit`
+4. Locate the `TwitterHandle` field and enter a fictitious Twitter handle
+5. Select `Save`
+
+You will now need to modify your Java application to display the new Twitter handle for the contacts.
+1. Open the `src/main/java/com/example/controller/PersonController.java` file and locate the line:
+
+        map.put("personList", service.query("select Id,FirstName,LastName,Email FROM Contact"));
+
+2. Update the SOQL query to include the new `TwitterHandle` field:
+
+        map.put("personList", service.query("select Id,FirstName,LastName,Email,TwitterHandle__c FROM Contact"));
+
+    The `__c` indicates that the field is a custom field.
+3. Open the `src/main/webapp/WEB-INF/jsp/persons.jsp` file
+4. Add a new line beneath:
+
+        <th>Email</th>
+
+    Containing:
+
+        <th>Twitter</th>
+
+5. Add a new line beneath:
+
+        <td>${person.getField("email").value}</td>
+
+    Containing:
+
+        <td><a href="http://twitter.com/${person.getField("twitterhandle__c").value}">${person.getField("twitterhandle__c").value}</a></td>
+
+Test your change locally by restarting the local server and opening [http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons) in your browser.  You should see a new column containing the Twitter handle.
+
+You can now deploy your changes on Heroku.  First commit the changes to your local Git repository:
+1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
+2. Select `Team`
+3. Select `Commit...`
+4. Enter a `Commit message` like `Flipped first and last name`
+5. Select `Commit`
+
+Now push your changes to Heroku
+
+1. Select the project's context menu
+2. Select `Team`
+3. Select `Push to Upstream`
+
+Test the new version of the application on Heroku by navigating to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Open the "People" page and you should now see the new `Twitter` column.
 
 
 Chapter 4: Distributed Sessions on Heroku
