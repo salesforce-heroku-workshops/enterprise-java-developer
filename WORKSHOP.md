@@ -4,7 +4,10 @@ Heroku Enterprise Developer Workshop
 This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.  Before you get started you will need to install these prerequisites:
 
 * SSH access to heroku.com
-    1. If you have telnet installed you can verify this by running the following in a command prompt / terminal: `telnet heroku.com 22`
+    1. If you have telnet installed you can verify this by running the following in a command prompt / terminal:
+
+            telnet heroku.com 22
+
     2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
 * Java SE 6 - JDK: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * Eclipse 3.7 or newer (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/](http://www.eclipse.org/downloads/)
@@ -38,8 +41,8 @@ Now that you have everything installed you will need to configure the Heroku set
 
 * On Linux:
 
-    1. Select `Window` from the menu bar
-    2. Select `Preferences`
+        1. Select `Window` from the menu bar
+        2. Select `Preferences`
 
 Now you will configure the API key for Heroku.
 
