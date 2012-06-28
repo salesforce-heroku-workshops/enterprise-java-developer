@@ -40,8 +40,8 @@ Now that you have everything installed you will need to configure the Heroku set
 *** TODO ***
 
 * On Linux:
-1. Select `Window` from the menu bar
-2. Select `Preferences`
+    1. Select `Window` from the menu bar
+    2. Select `Preferences`
 
 Now you will configure the API key for Heroku.
 
