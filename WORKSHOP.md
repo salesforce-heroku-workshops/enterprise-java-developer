@@ -52,11 +52,13 @@ Now you will configure the API key for Heroku.
 Your API key for Heroku is now setup and since your email address and password are no longer needed, those fields will become blank.  *** VERIFY ***  You will now need to setup an SSH key for authenticating to Heroku for file uploads using Git.  You can use an existing SSH key or create a new one.  If you aren't sure if you have an existing SSH key, then create a new one.
 
 To use an existing SSH key:
+
 1. Select `Load SSH Key`
 2. Locate the public key on your file system
 3. Select `Ok`
 
 To create a new SSH key:
+
 1. Select `Generate` to be taken to the SSH2 preferences
 2. Select the `Key Management` tab
 3. Select `Generate RSA Key`
@@ -97,6 +99,7 @@ The default page of the application is the instructions for pulling the applicat
 Add a new `Person` to the database to verify the application is working correctly.
 
 Back in Eclipse you can view the details about the application on Heroku:
+
 1. *** TODO ***
 
 This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
@@ -108,6 +111,7 @@ Heroku is instructed to run the application using a file named `Procfile` in the
 This tells Heroku that for the `web` process run the `webapp-runner` with Java, listening to the HTTP port specified by the `PORT` environment variable and running the WAR file that was created by the Maven build.
 
 You can run this application locally within Eclipse to test changes before deploying them on Heroku.  Setup a new `Run Configuration` for `webapp-runner`:
+
 1. In Eclipse select `Run` from the menu bar
 2. Select `Run Configurations...`
 3. Select `Java Application`
@@ -156,6 +160,7 @@ This process will take about a minute to run.  The changes are uploaded to Herok
 Now verify your changes are live on Heroku by visiting your application's `people page` (the `herokuapp.com` version, not the `localhost` version).
 
 To view the logs for your application on Heroku, start by opening the `My Heroku Applications` view in Eclipse:
+
 1. Select `Window` from the menu bar
 2. Select `Show View`
 3. Expand `Heroku` in the list
@@ -172,9 +177,11 @@ You can see the status for the web process from the `Procfile` by expanding the 
 Double-click on the application in the `My Heroku Applications` view to see the details about the application.
 
 By default the application runs on one Dyno.  You can allocate (i.e. scale) as many Dynos as you want to the application's processes.  To scale the web process to five dynos:
+
 1. *** TODO: Waiting on Eclipse Plugin Feature ***
 
 Collaborators can be added to an application in order to allow other developers access to push changes and manage the application.  To add a collaborator to the application:
+
 1. Navigate to the Heroku application details
 2. Select the `Collaborators` tab
 3. Select `+`
@@ -184,6 +191,7 @@ Collaborators can be added to an application in order to allow other developers 
 You can transfer ownership of the application to someone else by adding them as a collaborator and then selecting `Make Owner` from the `Collaborators` tab.
 
 Heroku uses environment variables to handle configuration values that vary between environments.  To add a new environment variable to the application:
+
 1. Navigate to the Heroku application details
 2. Select the `Environment Variables` tab
 3. *** TODO: Waiting on Eclipse Plugin Feature ***
@@ -199,6 +207,7 @@ Chapter 2: Building a RESTful API
 The application you started with is a pretty typical Java web application that uses JSPs for generating web pages on the server.  It is becoming much more common for web applications to expose serialized data in a RESTful architecture for web and mobile consumption.  Now you will add a service to the application that will return the list of people as serialized data using the JavaScript Object Notation (JSON).
 
 Start by adding the jQuery and Jackson JSON libraries to your project dependencies:
+
 1. Add the `webjars` repository within the `project` section of your `pom.xml` file:
 
         <repositories>
@@ -222,6 +231,7 @@ Start by adding the jQuery and Jackson JSON libraries to your project dependenci
         </dependency>
 
 Now add a new method to the `src/main/java/com/example/controller/PersonController.java` file:
+
 1. Add the import statements below the `package` line:
 
         import java.util.List;
@@ -241,6 +251,7 @@ Now add a new method to the `src/main/java/com/example/controller/PersonControll
 Verify that the JSON service works by opening [http://localhost:8080/people/](http://localhost:8080/people/) in your browser and adding a couple new people to the database.  Then open [http://localhost:8080/people/people.json](http://localhost:8080/people/people.json) in your browser and you should see a JSON encoded list of the people in your database.
 
 Now you will add a HTML file that will load and render the people through JavaScript / jQuery:
+
 1. Edit the `src/main/resources/applicationContext.xml` file and add the following to the `beans` section:
 
         <mvc:resources location="classpath:public/" mapping="/assets/**"/>
@@ -358,6 +369,7 @@ To test the application on Heroku navigate to `https://yourappname.herokuapp.com
 *** TODO: Screenshot ***
 
 Now that the application is working lets make a simple modification to it.  Lets add a Twitter handle field to the `Contact` object on Salesforce.com:
+
 1. Login to [Salesforce.com](http://salesforce.com)
 2. Select your name in the top right and select `Setup`
 3. On the left, expand `Customize` then expand `Contacts`
@@ -372,6 +384,7 @@ Now that the application is working lets make a simple modification to it.  Lets
 12. Select `Save`
 
 Now that the field has been added, test it by adding a Twitter handle to a Contact:
+
 1. Select the `Contacts` tab
 2. Next to the `All Contacts` drop-down select `Go`
 3. Pick a contact and select `Edit`
@@ -379,6 +392,7 @@ Now that the field has been added, test it by adding a Twitter handle to a Conta
 5. Select `Save`
 
 You will now need to modify your Java application to display the new Twitter handle for the contacts.
+
 1. Open the `src/main/java/com/example/controller/PersonController.java` file and locate the line:
 
         map.put("personList", service.query("select Id,FirstName,LastName,Email FROM Contact"));
@@ -408,6 +422,7 @@ You will now need to modify your Java application to display the new Twitter han
 Test your change locally by restarting the local server and opening [http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons) in your browser.  You should see a new column containing the Twitter handle.
 
 You can now deploy your changes on Heroku.  First commit the changes to your local Git repository:
+
 1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
 2. Select `Team`
 3. Select `Commit...`
