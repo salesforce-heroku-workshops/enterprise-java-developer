@@ -3,23 +3,27 @@ Heroku Enterprise Developer Workshop
 
 This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.  Before you get started you will need to install these prerequisites:
 
-* Java 1.6: [http://oracle.com](http://oracle.com) *** NEED URL ***
 * SSH access to heroku.com
-    1. Verify with: `telnet heroku.com 22`
-    2. *** TODO ***
-* Eclipse 3.7: [http://eclipse.org](http://eclipse.org) *** NEED URL ***
-* EGit Eclipse Plugin
+    1. If you have telnet installed you can verify this by running the following in a command prompt / terminal: `telnet heroku.com 22`
+    2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
+* Java SE 6 - JDK: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* Eclipse 3.7 or newer (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/](http://www.eclipse.org/downloads/)
+* Maven Eclipse Plugin
     1. In Eclipse select `Help` bar
-    2. Select `Software Marketplace`
-    3. *** TODO ***
-* M2E Eclipse Plugin
-    1. In Eclipse select `Help` bar
-    2. Select `Software Marketplace`
-    3. *** TODO ***
+    2. Select `Eclipse Marketplace...`
+    3. In the `Find` field enter `Maven`
+    4. Select `Go`
+    5. Select `Install` on the `Maven Integration for Eclipse` item
+    6. Follow the dialogs to complete the installation
 * Heroku Eclipse Plugin
     1. In Eclipse select `Help` bar
-    2. Select `Software Marketplace`
-    3. *** TODO ***
+    2. Select `Install New Software...`
+    3. Select `Add...`
+    4. In the `Location` field enter: http://eclipse-plugin.herokuapp.com/install
+    5. Select `Ok`
+    6. Once `Heroku Eclipse Integration` appears in the list, check the box to it's left
+    7. Select `Next`
+    8. Follow the dialogs to complete the installation
 * Heroku Enterprise Trial Sign up *** TODO ***
 * Salesforce.com Developer Edition Account *** TODO ***
 
@@ -78,10 +82,14 @@ Now that everything is setup you will create your first application on Heroku us
 3. Select Project
 4. Expand the `Heroku` section
 5. Select `Create Heroku App from Template`
-6. *** TODO ***
+6. Select `Next`
+7. If prompted for your `secure storage password` enter it and select `Ok`
+8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only use alpha-numeric characters and dashes.  Enter that name in the `Application Name` field.
+9. Select `Next`
+10. Select `Web app with Spring and Tomcat`
+11. Select `Finish`
 
-You now have a simple Spring MVC application in Eclipse which has also been deployed on Heroku.  To view the application on Heroku:
-1. *** TODO ***
+You now have a simple Spring MVC application in Eclipse which has also been deployed on Heroku.  View your application on Heroku in your web browser by navigating to `http://yourappname.herokuapp.com` (replacing `yourappname` with the name you selected for your application).
 
 The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link where you should see:
 *** TODO: SCREENSHOT ***
@@ -147,30 +155,125 @@ This process will take about a minute to run.  The changes are uploaded to Herok
 
 Now verify your changes are live on Heroku by visiting your application's `people page` (the `herokuapp.com` version, not the `localhost` version).
 
-To view the logs for your application on Heroku:
-1. *** TODO ***
+To view the logs for your application on Heroku, start by opening the `My Heroku Applications` view in Eclipse:
+1. Select `Window` from the menu bar
+2. Select `Show View`
+3. Expand `Heroku` in the list
+4. Select `My Heroku Applications`
+5. Select `Ok`
+6. Locate your application in the list
+7. Select the context menu for the application (right-click on the application)
+8. Select `View Logs`
 
+You will now see the logs for your application on Heroku in the `Heroku log console` view.  If you make a request to the the application in your browser then you will now see the request logged in the `Heroku log console` view.
 
-* Managing your application
-* Viewing your application processes (View -> My Heroku applications)
-* Scale
-* Collaborators
-* Adding a collaborator
-* Changing ownership
-* Environment configuration
-* Talk about addons (short blurb with a link to addons.heroku.com)
-* Add/ Update / Delete
-* Refresh
-* Destroying your applications
+You can see the status for the web process from the `Procfile` by expanding the application in the `My Heroku Applications` view.
+
+Double-click on the application in the `My Heroku Applications` view to see the details about the application.
+
+By default the application runs on one Dyno.  You can allocate (i.e. scale) as many Dynos as you want to the application's processes.  To scale the web process to five dynos:
+1. *** TODO: Waiting on Eclipse Plugin Feature ***
+
+Collaborators can be added to an application in order to allow other developers access to push changes and manage the application.  To add a collaborator to the application:
+1. Navigate to the Heroku application details
+2. Select the `Collaborators` tab
+3. Select `+`
+4. In the `Email` field enter the email address for the collaborator
+5. Select `OK`
+
+You can transfer ownership of the application to someone else by adding them as a collaborator and then selecting `Make Owner` from the `Collaborators` tab.
+
+Heroku uses environment variables to handle configuration values that vary between environments.  To add a new environment variable to the application:
+1. Navigate to the Heroku application details
+2. Select the `Environment Variables` tab
+3. *** TODO: Waiting on Eclipse Plugin Feature ***
+
+Heroku provides a large ecosystem of cloud services that can be instantly provisioned for your application.  To see the list of Heroku Add-ons navigate to [http://addons.heroku.com](http://addons.heroku.com) in your browser.  If you are logged into heroku.com you can add add-ons to your application from your web browser.  You will do this shortly.
+
+If needed you can destroy your applications on Heroku by selecting `Destroy` from the context menu for an application in the `My Heroku Applications` view.  This will destroy the application, the Git repository, all add-ons, and all data for an application.
 
 
 Chapter 2: Building a RESTful API
 ---------------------------------
-* Adding JSON nature to the "Person" entity
-* Adding a JSP with JQuery to invoke the JSON
+
+The application you started with is a pretty typical Java web application that uses JSPs for generating web pages on the server.  It is becoming much more common for web applications to expose serialized data in a RESTful architecture for web and mobile consumption.  Now you will add a service to the application that will return the list of people as serialized data using the JavaScript Object Notation (JSON).
+
+Start by adding the jQuery and Jackson JSON libraries to your project dependencies:
+1. Add the `webjars` repository within the `project` section of your `pom.xml` file:
+
+        <repositories>
+            <repository>
+                <id>webjars</id>
+                <url>http://webjars.github.com/m2</url>
+            </repository>
+        </repositories>
+
+2. Add the dependencies to the `dependencies` section of your `pom.xml` file:
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jquery</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.7.2-1</version>
+        </dependency>
+
+Now add a new method to the `src/main/java/com/example/controller/PersonController.java` file:
+1. Add the import statements below the `package` line:
+
+        import java.util.List;
+        import org.springframework.http.MediaType;
+        import org.springframework.web.bind.annotation.ResponseBody;
+
+2. Add a new method within the `public class` block:
+
+        @RequestMapping(value = "/people.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        public @ResponseBody List<Person> listPeople() {
+            return personService.listPeople();
+        }
+
+3. Terminate the running process by opening the `Console` view and selecting the stop / terminate button
+4. Restart the `webapp-runner` process by selecting `Run` from the menu bar then select `Run`
+
+Verify that the JSON service works by opening [http://localhost:8080/people/](http://localhost:8080/people/) in your browser and adding a couple new people to the database.  Then open [http://localhost:8080/people/people.json](http://localhost:8080/people/people.json) in your browser and you should see a JSON encoded list of the people in your database.
+
+Now you will add a HTML file that will load and render the people through JavaScript / jQuery:
+1. Edit the `src/main/resources/applicationContext.xml` file and add the following to the `beans` section:
+
+        <mvc:resources location="classpath:public/" mapping="/assets/**"/>
+
+    This sets up a mapping that will allow you to load jQuery from the webjar.
+2. Create a new file named `src/main/webapp/people.html` that contains:
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <script src="/people/assets/jquery.min.js"></script>
+        <script>
+            $(function() {
+                $.getJSON("people/people.json", function(people) {
+                    $.each(people, function(index, person) {
+                        $("#people").append($("<li>").text(person.firstName + " " + person.lastName))
+                    })
+                })
+            })
+        </script>
+        </head>
+        <body>
+            <ul id="people"></ul>
+        </body>
+        </html>
+
+3. Restart the server again (terminate and run like before)
+4. Test the new web page by loading [http://localhost:8080/people.html](http://localhost:8080/people.html) in your browser
+
+Now deploy your changes on Heroku (like before) by committing the changes to your local Git repository and then pushing the changes to Heroku.  Then verify that the new `people.html` page works on Heroku.
 
 
-Chapter 3: Integating with Force.com
+Chapter 3: Integrating with Force.com
 -----------------------------------
 * Clone the "Spring MVC + Force.com template"
 * Setting up Remote Access (Salesforce.com screenshots)
