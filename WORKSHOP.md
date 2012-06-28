@@ -498,34 +498,32 @@ Also in the `pom.xml` add the pubnub library as a dependency in the `dependencie
 
 Create a new file named `src/main/java/com/example/services/PubnubService.java` containing:
 
-	package com.example.services;
-
-	import org.json.JSONException;
-	import org.json.JSONObject;
-
-	import pubnub.Pubnub;
-
-	public class PubnubService {
-
-	    public static void pushUpdate(String id) {
-		try {
-		    String publishKey = System.getenv("PUBNUB_PUBLISH_KEY");
-		    String subscribeKey = System.getenv("PUBNUB_SUBSCRIBE_KEY");
-		    String secretKey = System.getenv("PUBNUB_SECRET_KEY");
-	    
-		    JSONObject jsonObject = new JSONObject();
-		    jsonObject.put("id", id);
-		    jsonObject.put("action", "updated");
-	    
-		    Pubnub pubnub = new Pubnub(publishKey, subscribeKey, secretKey);
-		    pubnub.publish(id, jsonObject);
-		}
-		catch (JSONException e) {
-		    
-		}
-	    }
-
-	}
+    package com.example.services;
+    
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    
+    import pubnub.Pubnub;
+    
+    public class PubnubService {
+        public static void pushUpdate(String id) {
+            try {
+                String publishKey = System.getenv("PUBNUB_PUBLISH_KEY");
+                String subscribeKey = System.getenv("PUBNUB_SUBSCRIBE_KEY");
+                String secretKey = System.getenv("PUBNUB_SECRET_KEY");
+        
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", id);
+                jsonObject.put("action", "updated");
+        
+                Pubnub pubnub = new Pubnub(publishKey, subscribeKey, secretKey);
+                pubnub.publish(id, jsonObject);
+            }
+            catch (JSONException e) {
+            
+            }
+        }
+    }
 
 In the `src/main/java/com/example/controller/ContactsController.java` file add these import statements:
 
