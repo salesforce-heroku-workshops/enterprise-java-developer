@@ -455,10 +455,168 @@ Verify that your application still works on Heroku.
 
 Chapter 5: Real time Push notifications
 ---------------------------------------
-* Adding "Pusher" (or PubNub) addon
-* Updating dependencies to pom.xml
-* Updating the "create" method to include a Push notification
-* Updating the JSP to subscribe for Push notifications
+
+With Heroku it's easy to at real-time push notifications to an application.  You will now add a notification that triggers every time a Contact is updated through your application on Heroku.  You will use the PubNub Heroku add-on to do the real-time push.
+
+First add a Maven repository to the `project` section of your `pom.xml` file for the PubNub library:
+
+    <repositories>
+        <repository>
+            <id>pubnub-repo</id>
+            <url>http://pubnub-repo.herokuapp.com/</url>
+        </repository>
+    </repositories>
+
+Also in the `pom.xml` add the pubnub library as a dependency in the `dependencies` section:
+
+    <dependency>
+        <groupId>pubnub</groupId>
+        <artifactId>pubnub</artifactId>
+        <version>3.1</version>
+    </dependency>
+
+Create a new file named `src/main/java/com/example/services/PubnubService.java` containing:
+
+	package com.example.services;
+
+	import org.json.JSONException;
+	import org.json.JSONObject;
+
+	import pubnub.Pubnub;
+
+	public class PubnubService {
+
+	    public static void pushUpdate(String id) {
+		try {
+		    String publishKey = System.getenv("PUBNUB_PUBLISH_KEY");
+		    String subscribeKey = System.getenv("PUBNUB_SUBSCRIBE_KEY");
+		    String secretKey = System.getenv("PUBNUB_SECRET_KEY");
+	    
+		    JSONObject jsonObject = new JSONObject();
+		    jsonObject.put("id", id);
+		    jsonObject.put("action", "updated");
+	    
+		    Pubnub pubnub = new Pubnub(publishKey, subscribeKey, secretKey);
+		    pubnub.publish(id, jsonObject);
+		}
+		catch (JSONException e) {
+		    
+		}
+	    }
+
+	}
+
+In the `src/main/java/com/example/controller/PersonController.java` file add these import statements:
+
+    import com.example.services.PubnubService;
+    import org.springframework.http.MediaType;
+    import org.springframework.web.bind.annotation.ResponseBody;
+
+Also in the `PersonController` class add a new method to retreive a Person as JSON:
+
+    @RequestMapping(value = "/{id}/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Map<String, Object> getPersonDetail(@PathVariable("id") String id) {
+        return service.fetch("Contact", id).getRaw();
+    }
+
+Then in the `editPerson` method, below the line containing:
+
+    service.update(record);
+
+Add the following:
+
+    PubnubService.pushUpdate(id);
+
+In the `src/main/webapp/WEB-INF/jsp/footer.jsp` file, below the line containing:
+
+    <script src="/resources/js/jquery-1.7.1.min.js"></script>
+
+Add the following:
+
+    <script src="/resources/js/bootstrap.min.js"></script>
+
+In the `src/main/webapp/WEB-INF/jsp/persons.jsp` file, below the line containing:
+
+    <jsp:include page="header.jsp"/>
+
+Add the following:
+
+    <div pub-key="<%=System.getenv("PUBNUB_PUBLISH_KEY")%>" sub-key="<%=System.getenv("PUBNUB_SUBSCRIBE_KEY")%>" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+    <script src="https://pubnub.s3.amazonaws.com/pubnub-3.1.min.js"></script>
+
+    <script>
+    function updatePerson(message) {
+        $.get("persons/" + message.id + "/json", function(person) {
+            var alert = $("<div>").addClass("alert alert-info");
+            alert.append($("<a>").addClass("close").attr("data-dismiss", "alert").html("&times;"));
+            alert.append($("<h4>").addClass("alert-heading").text("Contact " + person.FIRSTNAME + " " + person.LASTNAME + " Updated!"));
+            $(".span8").prepend(alert);
+        })
+    }
+    </script>
+
+And below the line containing:
+
+    <c:forEach items="${personList}" var="person">
+
+Add the following:
+
+    <script>
+    PUBNUB.subscribe({
+        channel: "${person.getField("id").value}",
+        callback: updatePerson
+    });
+    </script>
+
+Now your application will display a message on the "People" page each time someone updates a person through the application.  That message will be pushed out in real-time to all of the users of the application.
+
+To configure PubNub you will need to add the PubNub Heroku Add-on then obtain and set the required environment variables:
+1. Navigate in your browser to [https://addons.heroku.com/pubnub](https://addons.heroku.com/pubnub)
+2. Select `Add` for the free "Minimal" level of service
+3. Select your application from the drop-down
+4. Select the `Select` button
+5. When the PubNub service has been installed, select PubNub from the list of resources in your application
+
+The `PUBLISH KEY`, `SUBSCRIBE KEY`, and `SECRET KEY` values will need to be added to your local runtime configuration and to your environment variables on Heroku.
+
+First add these to your local run configuration so you can test locally:
+1. If you have a webapp-runner actively running then terminate it in Eclipse
+2. In Eclipse select the `Run` menu
+3. Select `Run Configurations...`
+4. Select the configuration on the left named `webapp-runner for x` (replacing x with your project name)
+5. Select the `Environment` tab
+6. Select `New`
+7. In the `Name` field enter `PUBNUB_PUBLISH_KEY`
+8. Retrieve the `PUBLISH KEY` value from the PubNub Heroku Add-on page then copy and paste it into the `Value` field
+9. Select `Ok`
+10. Select `New`
+11. In the `Name` field enter `PUBNUB_SUBSCRIBE_KEY`
+12. Retrieve the `SUBSCRIBE KEY` value from the PubNub Heroku Add-on page then copy and paste it into the `Value` field
+13. Select `Ok`
+14. Select `New`
+15. In the `Name` field enter `PUBNUB_SECRET_KEY`
+16. Retrieve the `SECRET KEY` value from the PubNub Heroku Add-on page then copy and paste it into the `Value` field
+17. Select `Ok`
+18. Select `Run` to start the application
+
+To test the real-time push you will need two browser windows.  Open both to the [http://localhost:8080/sfdc/persons](http://localhost:8080/sfdc/persons) page.  Then in one browser select a contact to edit (by selecting the contact name).  Then select edit, make a change, and select `Save`.  In your other browser you should see a notification that the Contact was updated.
+
+Before you deploy these changes on Heroku set the environment variables for PubNub:
+1. Locate the application in the `My Heroku Applications` view and double-click on the application
+2. Select the `Environment Variables` tab
+3. *** TODO: Waiting on Eclipse Plugin env var support ***
+
+Now deploy your changes:
+1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
+2. Select `Team`
+3. Select `Commit...`
+4. Enter a `Commit message` like `Added real-time push with PubNub`
+5. Select `Commit`
+6. Select the project's context menu
+7. Select `Team`
+8. Select `Push to Upstream`
+
+Verify that the real-time push notifications work in your application on Heroku.
 
 
 Chapter 6: Monitoring and Managing your app
