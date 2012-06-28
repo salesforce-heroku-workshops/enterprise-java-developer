@@ -638,13 +638,54 @@ Now deploy your changes:
 Verify that the real-time push notifications work in your application on Heroku.
 
 
-Chapter 6: Monitoring and Managing your app
--------------------------------------------
-* Adding the New Relic addon
-* Java agent setup
-* Procfile updates
-* Deploying your changes to Heroku
-* New Relic Dashboard walkthrough
+Chapter 6: Performance Monitoring with New Relic
+------------------------------------------------
+
+New Relic provides an in-depth view into the performance and memory usage of applications on Heroku.
+
+Start by adding the New Relic Add-on:
+
+1. Navigate in your browser to [https://addons.heroku.com/newrelic](https://addons.heroku.com/newrelic)
+2. Select `Add` for the free "Standard" level of service
+3. Select your application from the drop-down
+4. Select the `Select` button
+
+Now your application needs to be configured to use the New Relic Java agent:
+
+1. Download the newest New Relic Java Agent zip file from [http://download.newrelic.com/newrelic/java-agent/newrelic-api/](http://download.newrelic.com/newrelic/java-agent/newrelic-api/)
+2. Unzip the archive
+3. Copy the `newrelic.jar` and `newrelic.yml` files into the root directory of your project
+
+Commit these new files to your Git repository and push the new version to Heroku:
+
+1. Select the project's context menu (right-click on the project in the `Project Explorer` panel
+2. Select `Team`
+3. Select `Commit...`
+4. Enter a `Commit message` like `Added New Relic files`
+5. In the `Files` list check the boxes next to the `newrelic.jar` and `newrelic.yml` files
+5. Select `Commit`
+6. Select the project's context menu
+7. Select `Team`
+8. Select `Push to Upstream`
+
+You need to change the default `JAVA_OPTS` environment variable for your application to the Java process to use the New Relic Java agent.
+
+1. Navigate to the Heroku application details
+2. Select the `Environment Variables` tab
+3. *** TODO: Waiting on Eclipse Plugin Feature ***
+4. `JAVA_OPTS`
+5. `-Xmx384m -Xss512k -XX:+UseCompressedOops -javaagent:newrelic.jar`
+
+Test the application on Heroku in your browser and verify that it works as expected.
+
+You can now browse the New Relic Dashboard:
+
+1. In your browser navigate to [https://api.heroku.com/myapps](https://api.heroku.com/myapps)
+2. Select the application you added New Relic to
+3. Select the `Add-ons` drop-down
+4. Select `New Relic`
+
+Explore the New Relic dashboard.
 
 
 Chapter 7: Searching Logs with Papertrail
