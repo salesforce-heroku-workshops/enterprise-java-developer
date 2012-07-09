@@ -9,7 +9,7 @@ This workshop will give you an introduction to building enterprise Java applicat
             telnet heroku.com 22
     2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
 * Java SE 6 - JDK: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* Eclipse 3.7 or newer (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/](http://www.eclipse.org/downloads/)
+* Eclipse 3.7 (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/packages/release/indigo/sr2](http://www.eclipse.org/downloads/packages/release/indigo/sr2)
 * Heroku Eclipse Plugin
     1. In Eclipse select `Help` bar
     2. Select `Install New Software...`
@@ -20,7 +20,12 @@ This workshop will give you an introduction to building enterprise Java applicat
     7. Select `Next`
     8. Follow the dialogs to complete the installation
 * Heroku Enterprise Trial Sign up *** TODO ***
-* Salesforce.com Developer Edition Account *** TODO ***
+* Salesforce.com Developer Edition Account
+    1. In your browser navigate to: [http://developer.force.com/](http://developer.force.com/)
+    2. Select `JOIN NOW`
+    3. Complete and submit the form
+    4. Check your email and navigate to the verification page
+    5. Complete and save the form to set your password
 
 Now that you have everything installed you will need to configure the Heroku settings in Eclipse.  Navigate to the Eclipse preferences:
 * On Windows:
@@ -40,10 +45,11 @@ Now you will configure the API key for Heroku.
 1. Select Heroku from the list on the left
 2. Enter the email address you used for your Heroku account in the `Email` field
 3. Enter your password in the `Password` field
-4. Select the `Get API Key`
-5. *** TODO: Master password stuff ***
+4. Select the `Login`
 
-Your API key for Heroku is now setup and since your email address and password are no longer needed, those fields will become blank.  *** VERIFY ***  You will now need to setup an SSH key for authenticating to Heroku for file uploads using Git.  You can use an existing SSH key or create a new one.  If you aren't sure if you have an existing SSH key, then create a new one.
+    The Heroku Eclipse Plugin uses Eclipse's Secure Storage system to store the Heroku API key.  You may be prompted to setup a master password or authenticate with your operating system's key chain tool.
+
+Your API key for Heroku is now setup.  You will now need to setup an SSH key for authenticating to Heroku for file uploads using Git.  You can use an existing SSH key or create a new one.  If you aren't sure if you have an existing SSH key, then create a new one.
 
 To use an existing SSH key:
 
@@ -173,11 +179,16 @@ You will now see the logs for your application on Heroku in the `Heroku log cons
 
 You can see the status for the web process from the `Procfile` by expanding the application in the `My Heroku Applications` view.
 
-Double-click on the application in the `My Heroku Applications` view to see the details about the application.
+To see the application details:
+1. In the `My Heroku Applications` view select the context menu for the application
+2. Select `App Info`
 
 By default the application runs on one Dyno.  You can allocate (i.e. scale) as many Dynos as you want to the application's processes.  To scale the web process to five dynos:
 
-1. *** TODO: Waiting on Eclipse Plugin Feature ***
+1. In the `My Heroku Applications` view select the context menu for the application
+2. Select `Scale`
+3. In the `Scale to` field enter `5`
+4. Select `Ok`
 
 Collaborators can be added to an application in order to allow other developers access to push changes and manage the application.  To add a collaborator to the application:
 
@@ -193,7 +204,12 @@ Heroku uses environment variables to handle configuration values that vary betwe
 
 1. Navigate to the Heroku application details
 2. Select the `Environment Variables` tab
-3. *** TODO: Waiting on Eclipse Plugin Feature ***
+3. Select `+`
+4. In the `Key` field enter `FOO`
+5. In the `Value` field enter `bar`
+6. Select `Ok`
+
+You should now see the `Foo` environment variable along with the other default environment variables.
 
 Heroku provides a large ecosystem of cloud services that can be instantly provisioned for your application.  To see the list of Heroku Add-ons navigate to [http://addons.heroku.com](http://addons.heroku.com) in your browser.  If you are logged into heroku.com you can add add-ons to your application from your web browser.  You will do this shortly.
 
@@ -359,9 +375,17 @@ The application is already running on Heroku but in order for it to work properl
 
 You now have a new `Consumer Key` and `Consumer Secret` that will be used for your app on Heroku.  Those values will need to be set as environment variables on your Heroku application.
 
-1. Locate the application in the `My Heroku Applications` view and double-click on the application
-2. Select the `Environment Variables` tab
-3. *** TODO: Waiting on Eclipse plugin support ***
+1. In the `My Heroku Applications` view select the application's context menu
+2. Select `App Info`
+3. Select the `Environment Variables` tab
+4. Select `+`
+5. In the `Key` field enter `SFDC_OAUTH_CLIENT_ID`
+6. Retrieve the `Consumer Key` value from the `Remote Access Detail` page on Salesforce.com then copy and paste it into the `Value` field
+7. Select `OK`
+8. Select `+`
+9. In the `Key` field enter `SFDC_OAUTH_CLIENT_SECRET`
+10. Retrieve the `Consumer Secret` value from the `Remote Access Detail` page then copy and paste it into the `Value` field
+11. Select `OK`
 
 To test the application on Heroku navigate to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Opening the "Contacts" page should trigger the OAUTH handshake and then display your contacts.
 
@@ -617,9 +641,22 @@ To test the real-time push you will need two browser windows.  Open both to the 
 
 Before you deploy these changes on Heroku set the environment variables for PubNub:
 
-1. Locate the application in the `My Heroku Applications` view and double-click on the application
-2. Select the `Environment Variables` tab
-3. *** TODO: Waiting on Eclipse Plugin env var support ***
+1. In the `My Heroku Applications` view select the application's context menu
+2. Select `App Info`
+3. Select the `Environment Variables` tab
+4. Select `+`
+5. In the `Key` field enter `PUBNUB_PUBLISH_KEY`
+6. Retrieve the `PUBLISH KEY` value from the PubNub Heroku Add-on page then copy and paste it into the `Value` field
+7. Select `OK`
+8. Select `+`
+9. In the `Key` field enter `PUBNUB_SUBSCRIBE_KEY`
+10. Retrieve the `SUBSCRIBE KEY` value from the PubNub Heroku Add-on page then copy and paste it into the `Value` field
+11. Select `OK`
+12. Select `+`
+13. In the `Key` field enter `PUBNUB_SECRET_KEY`
+14. Retrieve the `SECRET KEY` value from the PubNub Heroku Add-on page then copy and paste it into the `Value` field
+15. Select `OK`
+
 
 Now deploy your changes:
 
@@ -667,11 +704,15 @@ Commit these new files to your Git repository and push the new version to Heroku
 
 You need to change the default `JAVA_OPTS` environment variable for your application to the Java process to use the New Relic Java agent.
 
-1. Navigate to the Heroku application details
-2. Select the `Environment Variables` tab
-3. *** TODO: Waiting on Eclipse Plugin Feature ***
-4. `JAVA_OPTS`
-5. `-Xmx384m -Xss512k -XX:+UseCompressedOops -javaagent:newrelic.jar`
+1. In the `My Heroku Applications` view select the application's context menu
+2. Select `App Info`
+3. Select the `Environment Variables` tab
+4. Select the environment variable with the key of `JAVA_OPTS`
+5. Select `-`
+4. Select `+`
+5. In the `Key` field enter `JAVA_OPTS`
+6. In the `Value` field enter `-Xmx384m -Xss512k -XX:+UseCompressedOops -javaagent:newrelic.jar`
+7. Select `OK`
 
 Test the application on Heroku in your browser and verify that it works as expected.
 
