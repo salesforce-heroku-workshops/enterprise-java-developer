@@ -394,7 +394,7 @@ You now have a new `Consumer Key` and `Consumer Secret` that will be used for yo
 
 To test the application on Heroku navigate to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Opening the "Contacts" page should trigger the OAUTH handshake and then display your contacts.
 
-*** TODO: Screenshot ***
+![SFDC Contacts](sfdc_contacts.png)
 
 Now that the application is working lets make a simple modification to it.  Lets add a Twitter handle field to the `Contact` object on Salesforce.com:
 
