@@ -50,7 +50,7 @@ Now you will configure the API key for Heroku.
 3. Enter your password in the `Password` field
 4. Select the `Login`
 
-    The Heroku Eclipse Plugin uses Eclipse's Secure Storage system to store the Heroku API key.  You may be prompted to setup a master password or authenticate with your operating system's key chain tool.
+The Heroku Eclipse Plugin uses Eclipse's Secure Storage system to store the Heroku API key.  You may be prompted to setup a master password or authenticate with your operating system's key chain tool.
 
 Your API key for Heroku is now setup.  You will now need to setup an SSH key for authenticating to Heroku for file uploads using Git.  You can use an existing SSH key or create a new one.  If you aren't sure if you have an existing SSH key, then create a new one.
 
