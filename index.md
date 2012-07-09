@@ -73,8 +73,10 @@ To create a new SSH key:
 9. Select `Heroku` from the preferences list on the left
 10. Paste the SSH public key text into the `SSH Key` field
 11. Verify that your Heroku preferences look similar to this:
-    *** TODO: SCREENSHOT ***
-11. Select `Ok` to save all of the settings
+
+    ![Heroku Preferences](heroku_preferences.png)
+
+12. Select `Ok` to save all of the settings
 
 
 Chapter 1: Getting Started with Spring MVC on Heroku
@@ -307,7 +309,7 @@ Chapter 3: Integrating with Force.com
 
 Now that you've learned the basics of deploying Java apps on Heroku you will deploy a Java application that integrates with Force.com through RESTful APIs.
 
-Start by creating a new project from the `Spring and Force.com` *** TODO: Need final name *** template:
+Start by creating a new project from the `Force.com connected Java app with Spring,OAuth` template:
 
 1. From the Eclipse menu bar select File
 2. Select New
@@ -318,7 +320,7 @@ Start by creating a new project from the `Spring and Force.com` *** TODO: Need f
 7. If prompted for your `secure storage password` enter it and select `Ok`
 8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only use alpha-numeric characters and dashes.  Enter that name in the `Application Name` field.
 9. Select `Next`
-10. Select `Spring and Force.com` *** TODO: Need final name *** *** TODO: Need this template app in list ***
+10. Select `Force.com connected Java app with Spring,OAuth`
 11. Select `Finish`
 
 This template application uses OAUTH to authenticate a user with Force.com.  To setup OAUTH you will need to configure a remote access application on Force.com.
