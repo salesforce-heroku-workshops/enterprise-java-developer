@@ -29,7 +29,8 @@ This workshop will give you an introduction to building enterprise Java applicat
     4. Check your email and navigate to the verification page
     5. Complete and save the form to set your password
 
-Now that you have everything installed you will need to configure the Heroku settings in Eclipse.  Navigate to the Eclipse preferences:  
+Now that you have everything installed you will need to configure the Heroku settings in Eclipse.  Navigate to the Eclipse preferences:
+
 * On Windows:
 
 *** TODO ***

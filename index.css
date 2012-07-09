@@ -3,6 +3,10 @@ body {
   font-size: 14px;
 }
 
+pre, code {
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+}
+
 pre {
   background-color: #F8F8F8;
   border-bottom-color: #CCC;
@@ -22,11 +26,6 @@ pre {
   border-top-style: solid;
   border-top-width: 1px;
   color: #333;
-  font-family: Consolas, Menlo, 'Liberation Mono', Courier, monospace;
-  font-size: 13px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
   margin-bottom: 15px;
   margin-left: 0px;
   margin-right: 0px;
@@ -49,6 +48,12 @@ code {
   border: 1px solid #EAEAEA;
   background-color: #F8F8F8;
   border-radius: 3px;
-  font-size: 12px;
-  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+}
+
+pre > code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
 }
