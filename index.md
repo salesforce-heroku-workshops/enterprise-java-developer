@@ -165,7 +165,7 @@ This commits your changes to your local Git repository.  Those changes need to b
 
 This process will take about a minute to run.  The changes are uploaded to Heroku where Heroku runs the Maven build on the project and then deploys the new version.  Once that process is complete you should see a confirmation like the following:
 
-*** TODO: SCREENSHOT ***
+![Push Complete](push_complete.png)
 
 Now verify your changes are live on Heroku by visiting your application's `people page` (the `herokuapp.com` version, not the `localhost` version).
 
