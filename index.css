@@ -2,6 +2,7 @@ body {
   font-family: Helvetica, arial, freesans, clean, sans-serif;
   font-size: 14px;
   line-height: 130%;
+  width: 95%;
 }
 
 pre, code {
@@ -67,6 +68,6 @@ pre > code {
   pre { 
     overflow-x: visible;
     overflow-y: visible;
-    width: 100%;
+    width: 98%;
   }
 }
