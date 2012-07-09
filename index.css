@@ -40,7 +40,7 @@ pre {
   padding-top: 6px;
   text-align: -webkit-auto;
   white-space: pre;
-  width: 90%;
+  width: 95%;
 }
 
 code {
@@ -58,4 +58,14 @@ pre > code {
   white-space: pre;
   border: none;
   background: transparent;
+}
+
+@media print {
+  body {
+    font-family: serif;
+  }
+  pre { 
+    overflow-x: visible;
+    overflow-y: visible;
+  }
 }
