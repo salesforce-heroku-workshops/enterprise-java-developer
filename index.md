@@ -98,8 +98,8 @@ Now that everything is setup you will create your first application on Heroku us
 
 You now have a simple Spring MVC application in Eclipse which has also been deployed on Heroku.  View your application on Heroku in your web browser by navigating to `http://yourappname.herokuapp.com` (replacing `yourappname` with the name you selected for your application).
 
-The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link where you should see:
-*** TODO: SCREENSHOT ***
+The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link where you should see:  
+![People Page](people_page.png)
 
 Add a new `Person` to the database to verify the application is working correctly.
 
