@@ -477,7 +477,7 @@ Heroku's Dynos are meant to be used in a stateless fashion for instant scalabili
 5. Select `Select`
 6. Open the `Procfile` and change line 1 to be:
 
-        web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT --session_manager memcache target/*.war
+        web:  java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT --session_manager memcache target/*.war
 
     This enables `webapp-runner` to use the provisioned Memcache service for externalized session storage
 
