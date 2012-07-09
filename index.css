@@ -68,7 +68,4 @@ pre > code {
     overflow-x: visible;
     overflow-y: visible;
   }
-  code {
-    white-space: pre-line;
-  }
 }

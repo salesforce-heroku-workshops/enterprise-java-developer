@@ -443,7 +443,8 @@ You will now need to modify your Java application to display the new Twitter han
 
     Containing:
 
-        <td><a href="http://twitter.com/${contact.getField("twitterhandle__c").value}">${contact.getField("twitterhandle__c").value}</a></td>
+        <td><a href="http://twitter.com/${contact.getField("twitterhandle__c").value}">
+            ${contact.getField("twitterhandle__c").value}</a></td>
 
 Test your change locally by restarting the local server and opening [http://localhost:8080/sfdc/contacts](http://localhost:8080/sfdc/contacts) in your browser.  You should see a new column containing the Twitter handle.
 
@@ -580,7 +581,8 @@ In the `src/main/webapp/WEB-INF/jsp/contacts.jsp` file, below the line containin
 
 Add the following:
 
-    <div pub-key="<%=System.getenv("PUBNUB_PUBLISH_KEY")%>" sub-key="<%=System.getenv("PUBNUB_SUBSCRIBE_KEY")%>" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+    <div pub-key="<%=System.getenv("PUBNUB_PUBLISH_KEY")%>"
+        sub-key="<%=System.getenv("PUBNUB_SUBSCRIBE_KEY")%>" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
     <script src="https://pubnub.s3.amazonaws.com/pubnub-3.1.min.js"></script>
 
     <script>
@@ -588,7 +590,7 @@ Add the following:
         $.get("contacts/" + message.id + "/json", function(contact) {
             var alert = $("<div>").addClass("alert alert-info");
             alert.append($("<a>").addClass("close").attr("data-dismiss", "alert").html("&times;"));
-            alert.append($("<h4>").addClass("alert-heading").text("Contact " + contact.FIRSTNAME + " " + contact.LASTNAME + " Updated!"));
+            alert.append($("<h4>").addClass("alert-heading").text("Contact "+contact.FIRSTNAME+" "+contact.LASTNAME+" Updated!"));
             $(".span8").prepend(alert);
         })
     }
