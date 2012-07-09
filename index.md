@@ -590,7 +590,7 @@ Add the following:
         $.get("contacts/" + message.id + "/json", function(contact) {
             var alert = $("<div>").addClass("alert alert-info");
             alert.append($("<a>").addClass("close").attr("data-dismiss", "alert").html("&times;"));
-            alert.append($("<h4>").addClass("alert-heading").text("Contact "+contact.FIRSTNAME+" "+contact.LASTNAME+" Updated!"));
+            alert.append($("<h4>").addClass("alert-heading").text(contact.FIRSTNAME + " " + contact.LASTNAME + " Updated!"));
             $(".span8").prepend(alert);
         })
     }
