@@ -21,7 +21,11 @@ This workshop will give you an introduction to building enterprise Java applicat
     6. Once `Heroku Eclipse Integration` appears in the list, check the box to it's left
     7. Select `Next`
     8. Follow the dialogs to complete the installation
-* Heroku Enterprise Trial Sign up *** TODO ***
+* Heroku Account
+    1. In your browser navigate to: [https://heroku.com/signup](https://heroku.com/signup)
+    2. Enter your email address
+    3. Select `Sign Up`
+    4. Check your email and navigate to the verification page
 * Salesforce.com Developer Edition Account
     1. In your browser navigate to: [http://developer.force.com/](http://developer.force.com/)
     2. Select `JOIN NOW`
@@ -31,16 +35,13 @@ This workshop will give you an introduction to building enterprise Java applicat
 
 Now that you have everything installed you will need to configure the Heroku settings in Eclipse.  Navigate to the Eclipse preferences:
 
-* On Windows:
-
-*** TODO ***
+* On Windows / Linux:
+    1. Select `Window` from the menu bar
+    2. Select `Preferences`
 
 * On Mac:
 
-*** TODO ***
-
-* On Linux:
-    1. Select `Window` from the menu bar
+    1. Select `Eclipse` from the menu bar
     2. Select `Preferences`
 
 Now you will configure the API key for Heroku.
