@@ -69,10 +69,10 @@ To create a new SSH key:
 4. Optionally set a password for the SSH key
 5. Select `Save Private Key...`
 6. Save the key to the file system (usually SSH keys are stored in a `.ssh` directory inside the user's home directory)
-7. Select the text for the SSH public key from the field beneath `You can paste this public key into the remote authorized_keys file:`
-8. Copy the text for the public key into your copy buffer / clipboard
-9. Select `Heroku` from the preferences list on the left
-10. Paste the SSH public key text into the `SSH Key` field
+7. Select `Heroku` from the preferences list on the left
+8. Select `Load SSH Key`
+9. Locate the newly created public key and select it
+10. Select `OK`
 11. Verify that your Heroku preferences look similar to this:
 
     ![Heroku Preferences](heroku_preferences.png)
@@ -85,17 +85,16 @@ Chapter 1: Getting Started with Spring MVC on Heroku
 
 Now that everything is setup you will create your first application on Heroku using a Spring MVC template application.
 
-1. From the Eclipse menu bar select File
-2. Select New
-3. Select Project
+1. From the Eclipse menu bar select `File`
+2. Select `New`
+3. Select `Project...`
 4. Expand the `Heroku` section
 5. Select `Create Heroku App from Template`
 6. Select `Next`
 7. If prompted for your `secure storage password` enter it and select `Ok`
-8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only use alpha-numeric characters and dashes.  Enter that name in the `Application Name` field.
-9. Select `Next`
-10. Select `Web app with Spring and Tomcat`
-11. Select `Finish`
+8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only contain *lower case* letters, numbers, and dashes.  Enter that name in the `Application Name` field.
+9. Select `Web app with Spring and Tomcat`
+10. Select `Finish`
 
 You now have a simple Spring MVC application in Eclipse which has also been deployed on Heroku.  View your application on Heroku in your web browser by navigating to `http://yourappname.herokuapp.com` (replacing `yourappname` with the name you selected for your application).
 
@@ -112,15 +111,6 @@ In order to scale and app or add add-ons your Heroku account will either need to
 4. Paste your `API Key` into the `API Key` field
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
-
-Back in Eclipse you can view the details about the application on Heroku:
-
-1. Select `Window` from the menu bar
-2. Select `Show View`
-3. Expand `Heroku` in the list
-4. Select `My Heroku Applications`
-5. Select `Ok`
-6. Double-click on your application in the list to view it's details
 
 This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
 
@@ -183,18 +173,20 @@ To view the logs for your application on Heroku, start by opening the `My Heroku
 
 1. Select `Window` from the menu bar
 2. Select `Show View`
-3. Expand `Heroku` in the list
-4. Select `My Heroku Applications`
-5. Select `Ok`
-6. Locate your application in the list
-7. Select the context menu for the application (right-click on the application)
-8. Select `View Logs`
+3. Select `Other...`
+4. Expand `Heroku` in the list
+5. Select `My Heroku Applications`
+6. Select `Ok`
+7. Locate your application in the list
+8. Select the context menu for the application (right-click on the application)
+9. Select `View Logs`
 
 You will now see the logs for your application on Heroku in the `Heroku log console` view.  If you make a request to the the application in your browser then you will now see the request logged in the `Heroku log console` view.
 
 You can see the status for the web process from the `Procfile` by expanding the application in the `My Heroku Applications` view.
 
 To see the application details:
+
 1. In the `My Heroku Applications` view select the context menu for the application
 2. Select `App Info`
 
