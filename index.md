@@ -104,6 +104,15 @@ The default page of the application is the instructions for pulling the applicat
 
 Add a new `Person` to the database to verify the application is working correctly.
 
+In order to scale and app or add add-ons your Heroku account will either need to be verified or your app can be transferred to someone with a verified account.  Verifying your account requires a credit card and following this tutorial will potentially cause some charges to be applied to your account.  If you like to verify your account navigate to [https://api.heroku.com/verify](https://api.heroku.com/verify) in your browser and complete the process.  To transfer ownership of your application to a verified account follow these steps:
+
+1. Navigate to the Heroku preferences in Eclipse
+2. Select the `API Key` and copy it into your copy buffer
+3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://app-transfer.herokuapp.com/)
+4. Paste your `API Key` into the `API Key` field
+5. In the `App Name` field enter the name of your app
+6. Select `Submit`
+
 Back in Eclipse you can view the details about the application on Heroku:
 
 1. Select `Window` from the menu bar
@@ -132,7 +141,7 @@ You can run this application locally within Eclipse to test changes before deplo
 7. Select the `Browse...` button next to the `Project` field
 8. Select your project from the list
 9. Select the `Arguments` tab
-10. In the `Program arguments` field enter `src/main/webapp`  *** TODO: VERIFY ON WINDOWS ***
+10. In the `Program arguments` field enter `src/main/webapp`
 11. Select `Run`
 
 Test that the application is working locally by opening [http://localhost:8080](http://localhost:8080) in your browser.  You should see something similar to what you saw with your application on Heroku.  Test that the application is working with the database by visiting the `people page` and adding a `Person`.  When running locally this application uses an in-memory database.
@@ -324,6 +333,15 @@ Start by creating a new project from the `Force.com connected Java app with Spri
 10. Select `Force.com connected Java app with Spring,OAuth`
 11. Select `Finish`
 
+Your new application will now need to be transfered so that you will be able to add add-ons:
+
+1. Navigate to the Heroku preferences in Eclipse
+2. Select the `API Key` and copy it into your copy buffer
+3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://app-transfer.herokuapp.com/)
+4. Paste your `API Key` into the `API Key` field
+5. In the `App Name` field enter the name of your app
+6. Select `Submit`
+
 This template application uses OAUTH to authenticate a user with Force.com.  To setup OAUTH you will need to configure a remote access application on Force.com.
 
 1. Login to [Salesforce.com](http://salesforce.com)
@@ -347,7 +365,7 @@ Now that OAuth is configured on Salesforce.com we can run this application local
 7. Select the `Browse...` button next to the `Project` field
 8. Select your project from the list
 9. Select the `Arguments` tab
-10. In the `Program arguments` field enter `src/main/webapp`  *** TODO: VERIFY ON WINDOWS ***
+10. In the `Program arguments` field enter `src/main/webapp`
 11. Select the `Environment` tab
 12. Select `New`
 13. In the `Name` field enter `SFDC_OAUTH_CLIENT_ID`
