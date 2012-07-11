@@ -3,7 +3,18 @@
 Heroku Enterprise Developer Workshop
 ====================================
 
-This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.  Before you get started you will need to install these prerequisites:
+This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.
+
+
+1. [Chapter 1: Getting Started with Spring MVC on Heroku](#chapter1)
+2. [Chapter 2: Building a RESTful API](#chapter2)
+3. [Chapter 3: Integrating with Force.com](#chapter3)
+4. [Chapter 4: Distributed Sessions on Heroku](#chapter4)
+5. [Chapter 5: Real time Push notifications](#chapter5)
+6. [Chapter 6: Performance Monitoring with New Relic](#chapter6)
+7. [Chapter 7: Searching Logs with Papertrail](#chapter7)
+
+Before you get started you will need to install these prerequisites:
 
 * SSH access to heroku.com
     1. If you have telnet installed you can verify this by running the following in a command prompt / terminal:
@@ -80,8 +91,8 @@ To create a new SSH key:
 12. Select `Ok` to save all of the settings
 
 
-Chapter 1: Getting Started with Spring MVC on Heroku
-----------------------------------------------------
+<a id="chapter1">Chapter 1: Getting Started with Spring MVC on Heroku</a>
+-------------------------------------------------------------------------
 
 Now that everything is setup you will create your first application on Heroku using a Spring MVC template application.
 
@@ -222,8 +233,8 @@ Heroku provides a large ecosystem of cloud services that can be instantly provis
 If needed you can destroy your applications on Heroku by selecting `Destroy` from the context menu for an application in the `My Heroku Applications` view.  This will destroy the application, the Git repository, all add-ons, and all data for an application.
 
 
-Chapter 2: Building a RESTful API
----------------------------------
+<a id="chapter2">Chapter 2: Building a RESTful API</a>
+------------------------------------------------------
 
 The application you started with is a pretty typical Java web application that uses JSPs for generating web pages on the server.  It is becoming much more common for web applications to expose serialized data in a RESTful architecture for web and mobile consumption.  Now you will add a service to the application that will return the list of people as serialized data using the JavaScript Object Notation (JSON).
 
@@ -305,7 +316,7 @@ Now you will add a HTML file that will load and render the people through JavaSc
 Now deploy your changes on Heroku (like before) by committing the changes to your local Git repository (making sure you add `people.html` to the repo) and then pushing the changes to Heroku.  Then verify that the new `people.html` page works on Heroku.
 
 
-Chapter 3: Integrating with Force.com
+<a id="chapter3">Chapter 3: Integrating with Force.com</a>
 -------------------------------------
 
 Now that you've learned the basics of deploying Java apps on Heroku you will deploy a Java application that integrates with Force.com through RESTful APIs.
@@ -477,7 +488,7 @@ Now push your changes to Heroku
 Test the new version of the application on Heroku by navigating to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Open the "Contacts" page and you should now see the new `Twitter` column.
 
 
-Chapter 4: Distributed Sessions on Heroku
+<a id="chapter4">Chapter 4: Distributed Sessions on Heroku</a>
 -----------------------------------------
 
 Heroku's Dynos are meant to be used in a stateless fashion for instant scalability and updates.  Some Java applications use session state to manage context across requests.  Spring Security uses session state to identify a user across requests.  To handle the use of session state you need to externalize the state.  Since this application uses `webapp-runner` this is very easy to by adding the Memcache Heroku Add-on and configuring `webapp-runner` to use it.
@@ -507,7 +518,7 @@ Now commit the changes to the local Git repository and push them to Heroku:
 Verify that your application still works on Heroku.
 
 
-Chapter 5: Real time Push notifications
+<a id="chapter5">Chapter 5: Real time Push notifications</a>
 ---------------------------------------
 
 With Heroku it's easy to at real-time push notifications to an application.  You will now add a notification that triggers every time a Contact is updated through your application on Heroku.  You will use the PubNub Heroku add-on to do the real-time push.
@@ -689,7 +700,7 @@ Now deploy your changes:
 Verify that the real-time push notifications work in your application on Heroku.
 
 
-Chapter 6: Performance Monitoring with New Relic
+<a id="chapter6">Chapter 6: Performance Monitoring with New Relic</a>
 ------------------------------------------------
 
 New Relic provides an in-depth view into the performance and memory usage of applications on Heroku.
@@ -743,7 +754,7 @@ You can now browse the New Relic Dashboard:
 Explore the New Relic dashboard.
 
 
-Chapter 7: Searching Logs with Papertrail
+<a id="chapter7">Chapter 7: Searching Logs with Papertrail</a>
 -----------------------------------------
 
 The Papertrail Heroku Add-on provides a powerful way to search your application logs in your browser and setup alerts for specific search criteria.
