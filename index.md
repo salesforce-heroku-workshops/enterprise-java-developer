@@ -107,7 +107,7 @@ In order to scale an app or add add-ons your Heroku account will either need to 
 
 1. Navigate to the Heroku preferences in Eclipse
 2. Select the `API Key` and copy it into your copy buffer
-3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://a
+3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://app-transfer.herokuapp.com/)
 4. Paste your `API Key` into the `API Key` field
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
@@ -327,7 +327,7 @@ Your new app needs to be transferred so that you will be able to add add-ons:
 
 1. Navigate to the Heroku preferences in Eclipse
 2. Select the `API Key` and copy it into your copy buffer
-3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://a
+3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://app-transfer.herokuapp.com/)
 4. Paste your `API Key` into the `API Key` field
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
