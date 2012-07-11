@@ -5,14 +5,13 @@ Heroku Enterprise Developer Workshop
 
 This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.
 
-
-1. [Chapter 1: Getting Started with Spring MVC on Heroku](#chapter1)
-2. [Chapter 2: Building a RESTful API](#chapter2)
-3. [Chapter 3: Integrating with Force.com](#chapter3)
-4. [Chapter 4: Distributed Sessions on Heroku](#chapter4)
-5. [Chapter 5: Real time Push notifications](#chapter5)
-6. [Chapter 6: Performance Monitoring with New Relic](#chapter6)
-7. [Chapter 7: Searching Logs with Papertrail](#chapter7)
+* [Chapter 1: Getting Started with Spring MVC on Heroku](#chapter1)
+* [Chapter 2: Building a RESTful API](#chapter2)
+* [Chapter 3: Integrating with Force.com](#chapter3)
+* [Chapter 4: Distributed Sessions on Heroku](#chapter4)
+* [Chapter 5: Real time Push notifications](#chapter5)
+* [Chapter 6: Performance Monitoring with New Relic](#chapter6)
+* [Chapter 7: Searching Logs with Papertrail](#chapter7)
 
 Before you get started you will need to install these prerequisites:
 
