@@ -103,6 +103,16 @@ The default page of the application is the instructions for pulling the applicat
 
 Add a new `Person` to the database to verify the application is working correctly.
 
+In order to scale an app or add add-ons your Heroku account will either need to be verified or your app can be transferred to someone with a verified account.  Verifying your account requires a credit card and following this tutorial will potentially cause some charges to be applied to your account.  If you'd like to verify your account navigate to https://api.heroku.com/verify](https://api.heroku.com/verify) in your browser and complete the process.  To transfer ownership of your application to a verified account follow these steps:
+
+1. Navigate to the Heroku preferences in Eclipse
+2. Select the `API Key` and copy it into your copy buffer
+3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://a
+4. Paste your `API Key` into the `API Key` field
+5. In the `App Name` field enter the name of your app
+6. Select `Submit`
+7. If you receive an error that the app could not be transferred then email `anand@heroku.com` to have your account enabled for transfer
+
 This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
 
 Heroku is instructed to run the application using a file named `Procfile` in the project's root directory.  The `Procfile` for this application contains:
@@ -172,7 +182,7 @@ To view the logs for your application on Heroku, start by opening the `My Heroku
 8. Select the context menu for the application (right-click on the application)
 9. Select `View Logs`
 
-You will now see the logs for your application on Heroku in the `Heroku log console` view.  If you make a request to the the application in your browser then you will now see the request logged in the `Heroku log console` view.
+You will now see the logs for your application on Heroku in the `Console` view.  If you make a request to the the application in your browser then you will now see the request logged in the `Console` view.
 
 You can see the status for the web process from the `Procfile` by expanding the application in the `My Heroku Applications` view.
 
@@ -186,10 +196,8 @@ Collaborators can be added to an application in order to allow other developers 
 1. Navigate to the Heroku application details
 2. Select the `Collaborators` tab
 3. Select `+`
-4. In the `Email` field enter `jw+workshop@heroku.com`
+4. In the `Email` field enter an email address
 5. Select `OK`
-6. Select `jw+workshop@heroku.com` from the list of collaborators
-7. Select `Make Owner` to transfer ownership of the app
 
 By default the application runs on one Dyno.  You can allocate (i.e. scale) as many Dynos as you want to the application's processes.  To scale the web process to five dynos:
 
@@ -315,15 +323,15 @@ Start by creating a new project from the `Force.com connected Java app with Spri
 10. Select `Force.com connected Java app with Spring,OAuth`
 11. Select `Finish`
 
-Your new application needs to be transfered to `jw+workshop@heroku.com` so that you will be able to add add-ons:
+Your new app needs to be transferred so that you will be able to add add-ons:
 
-1. Navigate to the Heroku application details
-2. Select the `Collaborators` tab
-3. Select `+`
-4. In the `Email` field enter `jw+workshop@heroku.com`
-5. Select `OK`
-6. Select `jw+workshop@heroku.com` from the list of collaborators
-7. Select `Make Owner` to transfer ownership of the app
+1. Navigate to the Heroku preferences in Eclipse
+2. Select the `API Key` and copy it into your copy buffer
+3. In your browser navigate to: [https://app-transfer.herokuapp.com/](https://a
+4. Paste your `API Key` into the `API Key` field
+5. In the `App Name` field enter the name of your app
+6. Select `Submit`
+7. If you receive an error that the app could not be transferred then email `anand@heroku.com` to have your account enabled for transfer
 
 This template application uses OAUTH to authenticate a user with Force.com.  To setup OAUTH you will need to configure a remote access application on Force.com.
 
