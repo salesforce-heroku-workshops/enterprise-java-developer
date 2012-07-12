@@ -392,7 +392,7 @@ The application is already running on Heroku but in order for it to work properl
 2. Select your name in the top right and select `Setup`
 3. On the left, expand `Develop` and select `Remote Access`
 4. Select `New` to create a new Remote Access Application
-5. In the `Application` field enter `local-spring`
+5. In the `Application` field enter `youappname-spring`
 6. In the `Contact Email` field enter your email address
 7. Enter `https://yourappname.herokuapp.com/_auth` in the `Callback URL` field (make sure you specify `https` as the protocol)
 8. Select `Save`
@@ -443,11 +443,12 @@ You will now need to modify your Java application to display the new Twitter han
 
 1. Open the `src/main/java/com/example/controller/ContactsController.java` file and locate the line:
 
-        map.put("contactList", service.query("select Id,FirstName,LastName,Email FROM Contact"));
+        map.put("contactList", salesforceService.query("select Id,FirstName,LastName,Email FROM Contact"));
 
 2. Update the SOQL query to include the new `TwitterHandle` field:
 
-        map.put("contactList", service.query("select Id,FirstName,LastName,Email,TwitterHandle__c FROM Contact"));
+        map.put("contactList",
+            salesforceService.query("select Id,FirstName,LastName,Email,TwitterHandle__c FROM Contact"));
 
     The `__c` indicates that the field is a custom field.
 3. Open the `src/main/webapp/WEB-INF/jsp/contacts.jsp` file
@@ -578,12 +579,12 @@ Also in the `ContactsController` class add a new method to retrieve a `Contact` 
 
     @RequestMapping(value = "/{id}/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Map<String, Object> getContactDetail(@PathVariable("id") String id) {
-        return service.fetch("Contact", id).getRaw();
+        return salesforceService.fetch("Contact", id).getRaw();
     }
 
-Then in the `editContact` method, below the line containing:
+Then in the `updateContact` method, below the line containing:
 
-    service.update(record);
+    salesforceService.update(record);
 
 Add the following:
 
@@ -691,10 +692,11 @@ Now deploy your changes:
 2. Select `Team`
 3. Select `Commit...`
 4. Enter a `Commit message` like `Added real-time push with PubNub`
-5. Select `Commit`
-6. Select the project's context menu
-7. Select `Team`
-8. Select `Push to Upstream`
+5. Check the box to add the new `PubnubService.java` file to the repo
+6. Select `Commit`
+7. Select the project's context menu
+8. Select `Team`
+9. Select `Push to Upstream`
 
 Verify that the real-time push notifications work in your application on Heroku.
 
