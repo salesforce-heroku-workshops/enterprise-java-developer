@@ -41,12 +41,12 @@ Before you get started you will need to install these prerequisites:
     5. Select `Ok`
     6. Once `Heroku Eclipse Integration` appears in the list, check the box to it's left
     7. Select `Next`
-    8. Follow the dialogs to complete the installation
+    8. Follow the dialogs to complete the installation  
 * Heroku Account
     1. In your browser navigate to: [https://heroku.com/signup](https://heroku.com/signup)
     2. Enter your email address
     3. Select `Sign Up`
-    4. Check your email and navigate to the verification page
+    4. Check your email and navigate to the verification page  
 * Salesforce.com Developer Edition Account
     1. In your browser navigate to: [http://developer.force.com/](http://developer.force.com/)
     2. Select `JOIN NOW`
