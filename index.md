@@ -3,7 +3,7 @@
 Heroku Enterprise Developer Workshop
 ====================================
 
-> Document Date: July 16, 2012
+> Document Date: July 16, 2012  
 > Document Home: http://enterprise-workshop.herokuapp.com
 
 
