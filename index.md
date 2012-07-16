@@ -18,6 +18,10 @@ This workshop will give you an introduction to building enterprise Java applicat
 * [Chapter 7: Searching Logs with Papertrail](#chapter7)
 * [Appendix A: Further Learning](#appendix-a)
 
+
+Setup and Installation
+----------------------
+
 Before you get started you will need to install these prerequisites:
 
 * SSH access to heroku.com
