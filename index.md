@@ -3,8 +3,8 @@
 Heroku Enterprise Developer Workshop
 ====================================
 
-> Document Date: July 16, 2012  
-> Document Home: http://enterprise-workshop.herokuapp.com
+    Document Date: July 16, 2012  
+    Document Home: http://enterprise-workshop.herokuapp.com
 
 
 This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.
