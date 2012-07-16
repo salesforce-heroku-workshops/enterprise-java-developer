@@ -13,7 +13,7 @@ This workshop will give you an introduction to building enterprise Java applicat
 * [Chapter 2: Building a RESTful API](#chapter2)
 * [Chapter 3: Integrating with Force.com](#chapter3)
 * [Chapter 4: Distributed Sessions on Heroku](#chapter4)
-* [Chapter 5: Real time Push notifications](#chapter5)
+* [Chapter 5: Real-time Push notifications](#chapter5)
 * [Chapter 6: Performance Monitoring with New Relic](#chapter6)
 * [Chapter 7: Searching Logs with Papertrail](#chapter7)
 * [Appendix A: Further Learning](#appendix-a)
@@ -25,8 +25,14 @@ Before you get started you will need to install these prerequisites:
 
             telnet heroku.com 22
     2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
-* Java SE 6 - JDK: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* Eclipse 3.7 (Eclipse IDE for Java EE Developers): [http://www.eclipse.org/downloads/packages/release/indigo/sr2](http://www.eclipse.org/downloads/packages/release/indigo/sr2)
+* Java SE 6 - JDK:  
+
+    [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
+* Eclipse 3.7 (Eclipse IDE for Java EE Developers):  
+
+    [http://www.eclipse.org/downloads/packages/release/indigo/sr2](http://www.eclipse.org/downloads/packages/release/indigo/sr2)
+
 * Heroku Eclipse Plugin
     1. In Eclipse select `Help` bar
     2. Select `Install New Software...`
@@ -112,7 +118,7 @@ Get started:
 5. Select `Create Heroku App from Template`
 6. Select `Next`
 7. If prompted for your `secure storage password` enter it and select `Ok`
-8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only contain __lower case__ letters, numbers, and dashes.  Enter that name in the `Application Name` field.
+8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  __It can only contain lower case letters, numbers, and dashes.__  Enter that name in the `Application Name` field.
 9. Select `Web app with Spring and Tomcat`
 10. Select `Finish`
 
@@ -250,7 +256,7 @@ If needed you can destroy your applications on Heroku by selecting `Destroy` fro
 <a id="chapter2">Chapter 2: Building a RESTful API</a>
 ------------------------------------------------------
 
-Goals: *** todo ***
+Goals: In this chapter you will add a RESTful JSON service to the application from Chapter 1 and consume the JSON service with a jQuery / JavaScript application.
 
 The application you started with is a pretty typical Java web application that uses JSPs for generating web pages on the server.  It is becoming much more common for web applications to expose serialized data in a RESTful architecture for web and mobile consumption.  Now you will add a service to the application that will return the list of people as serialized data using the JavaScript Object Notation (JSON).
 
@@ -354,7 +360,7 @@ Now deploy your changes on Heroku (like before) by committing the changes to you
 <a id="chapter3">Chapter 3: Integrating with Force.com</a>
 -------------------------------------
 
-Goals: *** todo ***
+Goals: In this chapter you will create a new application that integrates with Force.com from a Heroku template application.  You will learn how to setup OAuth on Salesforce.com so that the application can make API calls on behalf of the end user of the application.  After you have the application running locally and on Heroku you will add a new field to the `Contact` object on Salesforce.com and update your application to expose the new field.
 
 Now that you've learned the basics of deploying Java apps on Heroku you will deploy a Java application that integrates with Force.com through RESTful APIs.
 
@@ -367,7 +373,7 @@ Start by creating a new project from the `Force.com connected Java app with Spri
 5. Select `Create Heroku App from Template`
 6. Select `Next`
 7. If prompted for your `secure storage password` enter it and select `Ok`
-8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  It can only contain __lower case__ letters, numbers, and dashes.  Enter that name in the `Application Name` field.
+8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  __It can only contain lower case letters, numbers, and dashes.__  Enter that name in the `Application Name` field.
 10. Select `Force.com connected Java app with Spring,OAuth`
 11. Select `Finish`
 
@@ -532,9 +538,9 @@ Test the new version of the application on Heroku by navigating to `https://your
 
 
 <a id="chapter4">Chapter 4: Distributed Sessions on Heroku</a>
------------------------------------------
+--------------------------------------------------------------
 
-Goals: *** todo ***
+Goals: In order to scale your application instantly and perform instant upgrades your session state needs to be moved to an external session store.  This chapter will teach you how to use the Heroku Memcache Add-on to externalize your session state.
 
 Heroku's Dynos are meant to be used in a stateless fashion for instant scalability and updates.  Some Java applications use session state to manage context across requests.  Spring Security uses session state to identify a user across requests.  To handle the use of session state you need to externalize the state.  Since this application uses `webapp-runner` this is very easy to by adding the Memcache Heroku Add-on and configuring `webapp-runner` to use it.
 
@@ -564,10 +570,10 @@ Now commit the changes to the local Git repository and push them to Heroku:
 Verify that your application still works on Heroku.
 
 
-<a id="chapter5">Chapter 5: Real time Push notifications</a>
----------------------------------------
+<a id="chapter5">Chapter 5: Real-time Push notifications</a>
+------------------------------------------------------------
 
-Goals: *** todo ***
+Goals: Real-time is becoming a standard feature of web applications.  This chapter will teach you how to use the PubNub Heroku Add-on to push notifications to the browser in real-time.
 
 With Heroku it's easy to at real-time push notifications to an application.  You will now add a notification that triggers every time a Contact is updated through your application on Heroku.  You will use the PubNub Heroku add-on to do the real-time push.
 
@@ -750,9 +756,9 @@ Verify that the real-time push notifications work in your application on Heroku.
 
 
 <a id="chapter6">Chapter 6: Performance Monitoring with New Relic</a>
-------------------------------------------------
+---------------------------------------------------------------------
 
-Goals: *** todo ***
+Goals: With the New Relic Heroku Add-on you can easily setup application performance monitoring and reporting.  This chapter will teach you how to add New Relic to your application.
 
 New Relic provides an in-depth view into the performance and memory usage of applications on Heroku.
 
@@ -808,9 +814,9 @@ Explore the New Relic dashboard.
 <a id="chapter7">Chapter 7: Searching Logs with Papertrail</a>
 --------------------------------------------------------------
 
-Goals: *** todo ***
+Goals: This chapter will teach you how to add the Paptertrail Heroku Add-on to your application.  Papertrail provides a robust web interface for searching your application's logs and setting alerts for specific searches.
 
-The Papertrail Heroku Add-on provides a powerful way to search your application logs in your browser and setup alerts for specific search criteria.
+To add the Papertrail Add-on:
 
 1. Navigate in your browser to [https://addons.heroku.com/papertrail](https://addons.heroku.com/papertrail)
 2. Select `Add` for the free "Test" level of service
@@ -838,8 +844,6 @@ The next time your application has a log event that matches your search, you wil
 
 <a id="appendix-a">Appendix A: Further Learning</a>
 -------------------------------------------------
-
-*** todo ***
 
 Heroku Basics:
 
