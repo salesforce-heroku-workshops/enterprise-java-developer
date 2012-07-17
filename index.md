@@ -144,7 +144,6 @@ In order to scale an app or add add-ons your Heroku account will either need to 
 4. Paste your `API Key` into the `API Key` field
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
-7. If you receive an error that the app could not be transferred then email `anand@heroku.com` to have your account enabled for transfer
 
 This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
 
@@ -392,7 +391,6 @@ Your new app needs to be transferred so that you will be able to add add-ons:
 4. Paste your `API Key` into the `API Key` field
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
-7. If you receive an error that the app could not be transferred then email `anand@heroku.com` to have your account enabled for transfer
 
 This template application uses OAUTH to authenticate a user with Force.com.  To setup OAUTH you will need to configure a remote access application on Force.com.
 
