@@ -29,6 +29,7 @@ Before you get started you will need to install these prerequisites:
     1. If you have `telnet` installed you can verify this by running the following in a command prompt / terminal:
 
             telnet heroku.com 22
+
     2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
 
 * Java SE 6 - JDK:  
@@ -61,6 +62,9 @@ Before you get started you will need to install these prerequisites:
     3. Complete and submit the form
     4. Check your email and navigate to the verification page
     5. Complete and save the form to set your password
+
+Configure Eclipse
+-----------------
 
 Now that you have everything installed you will need to configure the Heroku settings in Eclipse.  Navigate to the Eclipse preferences:
 
@@ -227,7 +231,7 @@ You can see the status for the web process from the `Procfile` by expanding the 
 
 To see the application details:
 
-1. In the `My Heroku Applications` view select the context menu for the application
+1. In the `My Heroku Applications` view in Eclipse select the context menu for the application
 2. Select `App Info`
 
 Collaborators can be added to an application in order to allow other developers access to push changes and manage the application.  To add a collaborator to the application:
@@ -240,10 +244,17 @@ Collaborators can be added to an application in order to allow other developers 
 
 By default the application runs on one Dyno.  You can allocate (i.e. scale) as many Dynos as you want to the application's processes.  To scale the web process to five dynos:
 
-1. In the `My Heroku Applications` view select the context menu for the application
+1. In the `My Heroku Applications` view in Eclipse select the context menu for the application
 2. Select `Scale`
 3. In the `Scale to` field enter `5`
 4. Select `Ok`
+
+Verify that the `web` process has been scaled to 5 Dynos:
+
+1. In the `My Heroku Applications` view in Eclipse select the context menu for the application
+2. Select `App Info`
+3. Select the `Processes` tab
+4. Verify that the `web` process has 5 Dynos
 
 Heroku uses environment variables to handle configuration values that vary between environments.  To add a new environment variable to the application:
 
@@ -453,7 +464,7 @@ The application is already running on Heroku but in order for it to work properl
 
 You now have a new `Consumer Key` and `Consumer Secret` that will be used for your app on Heroku.  Those values will need to be set as environment variables on your Heroku application.
 
-1. In the `My Heroku Applications` view select the application's context menu
+1. In the `My Heroku Applications` view in Eclipse select the application's context menu
 2. Select `App Info`
 3. Select the `Environment Variables` tab
 4. Select `+`
@@ -732,7 +743,7 @@ To test the real-time push you will need two browser windows.  Open both to the 
 
 Before you deploy these changes on Heroku set the environment variables for PubNub:
 
-1. In the `My Heroku Applications` view select the application's context menu
+1. In the `My Heroku Applications` view in Eclipse select the application's context menu
 2. Select `App Info`
 3. Select the `Environment Variables` tab
 4. Select `+`
@@ -802,9 +813,7 @@ You need to change the default `JAVA_OPTS` environment variable for your applica
 2. Select `App Info`
 3. Select the `Environment Variables` tab
 4. Select the environment variable with the key of `JAVA_OPTS`
-5. Select `-`
-4. Select `+`
-5. In the `Key` field enter `JAVA_OPTS`
+5. Select `Edit`
 6. In the `Value` field enter `-Xmx384m -Xss512k -XX:+UseCompressedOops -javaagent:newrelic.jar`
 7. Select `OK`
 
