@@ -3,7 +3,7 @@
 Heroku Enterprise Developer Workshop
 ====================================
 
-    Document Date: July 16, 2012  
+    Document Date: July 16, 2012
     Document Home: http://enterprise-workshop.herokuapp.com
 
 [Download the PDF](workbook.pdf)
@@ -26,14 +26,13 @@ Setup and Installation
 Before you get started you will need to install these prerequisites:
 
 * Network (SSH) access to heroku.com
-    1. Either use an SSH client or `telnet` to verify the network connectin by running one of the following in a command prompt / terminal:
+    1. For Linux or MacOSX, either use an SSH client or `telnet` to verify the network connectin by running one of the following in a command prompt / terminal.  On Microsoft Windows you can use a tool called [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html):
 
             ssh -T heroku.com 22
             telnet heroku.com 22
 
-On Microsoft Windows you can use a tool called [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
+    2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com` (port 22).
 
-    2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com`
 
 * Java SE 6 - JDK:
 
@@ -142,7 +141,7 @@ Get started:
 
 You now have a simple Spring MVC application in Eclipse which has also been deployed on Heroku.  View your application on Heroku in your web browser by navigating to `http://yourappname.herokuapp.com` (replacing `yourappname` with the name you selected for your application).
 
-The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link where you should see:  
+The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link where you should see:
 ![People Page](people_page.png)
 
 Add a new `Person` to the database to verify the application is working correctly.
@@ -159,7 +158,7 @@ In order to scale an app or add add-ons your Heroku account will either need to 
 This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
 
 Heroku is instructed to run the application using a file named `Procfile` in the project's root directory.  The `Procfile` for this application contains:
-    
+
     web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
 
 This tells Heroku that for the `web` process run the `webapp-runner` with Java, listening to the HTTP port specified by the `PORT` environment variable and running the WAR file that was created by the Maven build.
@@ -310,7 +309,7 @@ Start by adding the jQuery and Jackson JSON libraries to your project dependenci
             <version>1.7.2-1</version>
         </dependency>
 
-    Your new `pom.xml` should look similar to:  
+    Your new `pom.xml` should look similar to:
     ![pom.xml](pom_xml.png)
 
 5. Save the file (From the Eclipse menu bar select `File` then select `Save`)
@@ -447,10 +446,10 @@ Now that OAuth is configured on Salesforce.com we can run this application local
 21. Select `Ok`
 22. Select `Run` to start the application
 
-Now that the application is up and running you can test it in your browser by visiting:  
+Now that the application is up and running you can test it in your browser by visiting:
 [http://localhost:8080/](http://localhost:8080/)
 
-The index page is unprotected and should load without having to authenticate.  Now load the "Contacts" page by visiting:  
+The index page is unprotected and should load without having to authenticate.  Now load the "Contacts" page by visiting:
 [http://localhost:8080/sfdc/contacts](http://localhost:8080/sfdc/contacts)
 
 You should now be redirected to Salesforce.com's OAuth handshake page.  Select `Allow` to do the OAuth handshake.  You will then be redirected back to the "Contacts" page which should now display a list of your Salesforce.com contacts.  (Note: Developer Edition accounts have a few contacts out-of-the-box.)  Test that creating and deleting contacts also works.
@@ -620,28 +619,28 @@ Also in the `pom.xml` file add the `pubnub` library as a dependency in the `depe
 Create a new file named `src/main/java/com/example/services/PubnubService.java` containing:
 
     package com.example.services;
-    
+
     import org.json.JSONException;
     import org.json.JSONObject;
-    
+
     import pubnub.Pubnub;
-    
+
     public class PubnubService {
         public static void pushUpdate(String id) {
             try {
                 String publishKey = System.getenv("PUBNUB_PUBLISH_KEY");
                 String subscribeKey = System.getenv("PUBNUB_SUBSCRIBE_KEY");
                 String secretKey = System.getenv("PUBNUB_SECRET_KEY");
-        
+
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("id", id);
                 jsonObject.put("action", "updated");
-        
+
                 Pubnub pubnub = new Pubnub(publishKey, subscribeKey, secretKey);
                 pubnub.publish(id, jsonObject);
             }
             catch (JSONException e) {
-            
+
             }
         }
     }
@@ -888,4 +887,3 @@ Integrating Java with Force.com:
 Cloud Application Architecture:
 
 * [12 Factor App](http://12factor.net)
-
