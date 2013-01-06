@@ -42,7 +42,7 @@ Before you get started you will need to install these prerequisites:
 
     [http://www.eclipse.org/downloads/packages/release/indigo/sr2](http://www.eclipse.org/downloads/packages/release/indigo/sr2)
 
-*Newer versions of Eclipse may work with the Heroku Eclipse plugin, but earlier versions have several other plugins missing from the default install and will cause issues.  Also the template project used in this workshop may not be recognised by earlier versions of Eclipse.*
+*Newer versions of Eclipse seem to work with the Heroku Eclipse plugin.  Eclipse versions earlier than 3.7 are missing several other plugins that the heroku plugin relies.  Also the template project used in this workshop may not be recognised by earlier versions of Eclipse.*
 
 * Heroku Eclipse Plugin
     1. In Eclipse select `Help` from the menu bar
