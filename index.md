@@ -34,9 +34,16 @@ Before you get started you will need to install these prerequisites:
 
 * Java SE 6 - JDK:  
 
+        $ java -version
+        java version "1.6.0_37"
+        Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)
+        Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)
+
     [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-* Eclipse 3.7 (Eclipse IDE for Java EE Developers):  
+* Eclipse 3.7 "Indigo" (Eclipse IDE for Java EE Developers): 
+
+     ![About Eclipse](about_eclipse.png)
 
     [http://www.eclipse.org/downloads/packages/release/indigo/sr2](http://www.eclipse.org/downloads/packages/release/indigo/sr2)
 
