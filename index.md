@@ -57,7 +57,7 @@ Before you get started you will need to install these prerequisites:
     3. Select `Add...`
     4. In the `Location` field enter: http://eclipse-plugin.herokuapp.com/install
     5. Select `Ok`
-    6. Once `Heroku Eclipse Integration` appears in the list, check the box to it's left
+    6. Once `Heroku Eclipse Integration` appears in the list, check the box to its left
     7. Select `Next`
     8. Follow the dialogs to complete the installation
 
@@ -97,7 +97,7 @@ Now you will configure the API key for Heroku.
 
 The Heroku Eclipse Plugin uses Eclipse's Secure Storage system to store the Heroku API key.  You may be prompted to setup a master password or authenticate with your operating system's key chain tool.
 
-Your API key for Heroku is now setup.  You will now need to setup an SSH key for authenticating to Heroku for file uploads using Git.  You can use an existing SSH key or create a new one.  If you aren't sure if you have an existing SSH key, then create a new one.
+Your API key for Heroku is now setup.  You may now need to setup an SSH key for authenticating to Heroku for file uploads using Git.  You can use an existing SSH key or create a new one.  If you aren't sure if you have an existing SSH key, then create a new one.
 
 To use an existing SSH key:
 
@@ -143,12 +143,12 @@ Get started:
 6. Select `Next`
 7. If prompted for your `secure storage password` enter it and select `Ok`
 8. Pick a name for your application.  The name needs to be unique across all of the apps on Heroku.  __It can only contain lower case letters, numbers, and dashes.__  Enter that name in the `Application Name` field.
-9. Select `Web app with Spring and Tomcat`
+9. Select `Spring MVC & Tomcat Application`
 10. Select `Finish`
 
 You now have a simple Spring MVC application in Eclipse which has also been deployed on Heroku.  View your application on Heroku in your web browser by navigating to `http://yourappname.herokuapp.com` (replacing `yourappname` with the name you selected for your application).
 
-The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link where you should see:
+The default page of the application is the instructions for pulling the application into your local development environment.  You've already done that using the Heroku Eclipse plugin, so you won't need to follow those.  To see the simple CRUD application in action select the `people page` link in the first paragraph of text where you should see:
 ![People Page](people_page.png)
 
 Add a new `Person` to the database to verify the application is working correctly.
@@ -162,13 +162,13 @@ In order to scale an app or add add-ons your Heroku account will either need to 
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
 
-This project uses Apache Maven for managing it's dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see dependencies for Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies the `webapp-runner` dependency into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner` which is a simple wrapper around Apache Tomcat.
+This project uses Apache Maven for managing its dependencies and to build the project.  You can see the dependency and build definition in the `pom.xml` file.  Among the dependencies you will see Spring MVC.  You will also see a section for the `maven-dependency-plugin` which copies `webapp-runner` into a directory when the Maven `package` phase runs.  This makes it easy to run the application with `webapp-runner`, a simple wrapper around Apache Tomcat.
 
 Heroku is instructed to run the application using a file named `Procfile` in the project's root directory.  The `Procfile` for this application contains:
 
     web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
 
-This tells Heroku that for the `web` process run the `webapp-runner` with Java, listening to the HTTP port specified by the `PORT` environment variable and running the WAR file that was created by the Maven build.
+This tells Heroku that, for the `web` process, it should run the `webapp-runner` with Java, listening to the HTTP port specified by the `PORT` environment variable and running the WAR file that was created by the Maven build.
 
 You can run this application locally within Eclipse to test changes before deploying them on Heroku.  Setup a new `Run Configuration` for `webapp-runner`:
 
@@ -180,7 +180,7 @@ You can run this application locally within Eclipse to test changes before deplo
 6. In the `Main class` field enter `webapp.runner.launch.Main`
 7. Select `Browse...` next to the `Project` field
 8. Select your project from the list
-9. Select `OK`
+9. Select `Apply`
 10. Select the `Arguments` tab
 11. In the `Program arguments` field enter `src/main/webapp`
 12. Select `Run`
@@ -206,14 +206,15 @@ Now you will deploy this change on Heroku.
 1. In Eclipse select the project's context menu (right-click on the project in the `Project Explorer` panel
 2. Select `Team`
 3. Select `Commit...`
-4. Enter a `Commit message` like `Flipped first and last name`
-5. Select `Commit`
+4. Select the `people.jsp` file in the `Unstaged Changes` list on the left and click the `>` button to move it to the `Staged changes` list on the right.
+5. Enter a `Commit message` like `Flipped first and last name`
+6. Select `Commit`
 
 This commits your changes to your local Git repository.  Those changes need to be pushed to Heroku.
 
 1. In Eclipse select the project's context menu
 2. Select `Team`
-3. Select `Push to Upstream`
+3. Select `Push` (the menu item may be named `Push to Upstream`)
 
 This process will take about a minute to run.  The changes are uploaded to Heroku where Heroku runs the Maven build on the project and then deploys the new version.  Once that process is complete you should see a confirmation like the following:
 
@@ -303,7 +304,7 @@ Start by adding the jQuery and Jackson JSON libraries to your project dependenci
             </repository>
         </repositories>
 
-4. Add the dependencies to the `dependencies` section:
+4. Add these dependencies to the `dependencies` section:
 
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -317,13 +318,14 @@ Start by adding the jQuery and Jackson JSON libraries to your project dependenci
         </dependency>
 
     Your new `pom.xml` should look similar to:
+
     ![pom.xml](pom_xml.png)
 
 5. Save the file (From the Eclipse menu bar select `File` then select `Save`)
 
 Now add a new method to the `src/main/java/com/example/controller/PersonController.java` file:
 
-1. Add the import statements below the `package` line:
+1. Add these import statements below the `package` line:
 
         import java.util.List;
         import org.springframework.http.MediaType;
@@ -343,7 +345,7 @@ Now add a new method to the `src/main/java/com/example/controller/PersonControll
 
 5. Restart the `webapp-runner` process by selecting `Run` from the menu bar then select `Run`
 
-Verify that the JSON service works by opening [http://localhost:8080/people/](http://localhost:8080/people/) in your browser and adding a couple new people to the database.  Then open [http://localhost:8080/people/people.json](http://localhost:8080/people/people.json) in your browser and you should see a JSON encoded list of the people in your database.
+Verify that the JSON service works by opening [http://localhost:8080/people/](http://localhost:8080/people/) in your browser and adding a couple of new people to the database (remember, when the app is running locally, it's using an in-memory database, so the person you added earlier will be gone).  Then open [http://localhost:8080/people/people.json](http://localhost:8080/people/people.json) in your browser and you should see a JSON encoded list of the people in your database.
 
 Now you will add a HTML file that will load and render the people through JavaScript / jQuery:
 
@@ -381,7 +383,7 @@ Now you will add a HTML file that will load and render the people through JavaSc
 
 4. Save the file (From the Eclipse menu bar select `File` then select `Save`)
 5. Restart the server again (terminate and run like before)
-6. Add a new person to your in-memory database by navigating to [http://localhost:8080/people/](http://localhost:8080/people/) in your browser and adding a couple new people to the database.
+6. Add some new people to your in-memory database by navigating to [http://localhost:8080/people/](http://localhost:8080/people/) in your browser and adding a couple of new people to the database.
 7. Test the new web page by loading [http://localhost:8080/people.html](http://localhost:8080/people.html) in your browser
 
 Now deploy your changes on Heroku (like before) by committing the changes to your local Git repository (making sure you add `people.html` to the repo) and then pushing the changes to Heroku.  Then verify that the new `people.html` page works on Heroku.
@@ -407,7 +409,7 @@ Start by creating a new project from the `Force.com connected Java app with Spri
 10. Select `Force.com connected Java app with Spring,OAuth`
 11. Select `Finish`
 
-Your new app needs to be transferred so that you will be able to add add-ons:
+If you have not associated a credit card with your Heroku account, your new app will need to be transferred so that you will be able to add add-ons:
 
 1. In Eclipse navigate to the Heroku preferences
 2. Select the `API Key` and copy it into your copy buffer
@@ -416,21 +418,25 @@ Your new app needs to be transferred so that you will be able to add add-ons:
 5. In the `App Name` field enter the name of your app
 6. Select `Submit`
 
-This template application uses OAuth to authenticate a user with Force.com.  To setup OAuth you will need to configure a remote access application on Force.com.
+This template application uses OAuth to authenticate a user with Force.com.  To setup OAuth you will need to configure a connected application on Force.com.
 
-1. Login to [Salesforce.com](http://salesforce.com)
+1. Login to [Salesforce.com](http://salesforce.com) using the Developer Edition credentials you setup earlier
 2. Select your name in the top right and select `Setup`
-3. On the left, expand `Develop` and select `Remote Access`
-4. Select `New` to create a new Remote Access Application
+3. On the left, expand `Create` and select `Apps`
+4. Scroll down to `Connected Apps` and select `New`
 5. In the `Application` field enter `local-spring`
 6. In the `Contact Email` field enter your email address
 7. Enter `http://localhost:8080/_auth` in the `Callback URL` field
-8. Select `Save`
-9. Leave the `Remote Access Detail` page open because shortly you will need some information from it
+8. Select `Access and manage your data`, `Access your basic information` and `Perform requests on your behalf at any time` from the `Available OAuth Scopes` and use the `Add` buttom to move them to `Selected OAuth Scopes`:
+
+    ![API Integration](api_integration.png)
+
+9. Select `Save`
+10. Leave the `Connected App Detail` page open because shortly you will need some information from it
 
 Now that OAuth is configured on Salesforce.com we can run this application locally to test it.  In Eclipse:
 
-1. If you have a webapp-runner actively running then terminate the running process by opening the `Console` view, select the webapp-runner process from the list of consoles (using the drop-down arrow next to the computer screen), and select the stop / terminate button (the square, red button)
+1. If you have a webapp-runner actively running then terminate the running process by opening the `Console` view, select the `webapp-runner` process from the list of consoles (using the drop-down arrow next to the computer screen), and select the stop / terminate button (the square, red button)
 2. Select the `Run` menu
 3. Select `Run Configurations...`
 4. Select `Java Application`
@@ -439,17 +445,17 @@ Now that OAuth is configured on Salesforce.com we can run this application local
 7. In the `Main class` field enter `webapp.runner.launch.Main`
 8. Select `Browse...` next to the `Project` field
 9. Select your project from the list
-10. Select `OK`
+10. Select `Apply`
 11. Select the `Arguments` tab
 12. In the `Program arguments` field enter `src/main/webapp`
 13. Select the `Environment` tab
 14. Select `New`
 15. In the `Name` field enter `SFDC_OAUTH_CLIENT_ID`
-16. Retrieve the `Consumer Key` value from the `Remote Access Detail` page on Salesforce.com then copy and paste it into the `Value` field
+16. Retrieve the `Consumer Key` value from the `Connected App Detail` page on Salesforce.com then copy and paste it into the `Value` field
 17. Select `Ok`
 18. Select `New`
 19. In the `Name` field enter `SFDC_OAUTH_CLIENT_SECRET`
-20. Retrieve the `Consumer Secret` value from the `Remote Access Detail` page then copy and paste it into the `Value` field
+20. Retrieve the `Consumer Secret` value from the `Connected App Detail` page then copy and paste it into the `Value` field
 21. Select `Ok`
 22. Select `Run` to start the application
 
@@ -461,30 +467,31 @@ The index page is unprotected and should load without having to authenticate.  N
 
 You should now be redirected to Salesforce.com's OAuth handshake page.  Select `Allow` to do the OAuth handshake.  You will then be redirected back to the "Contacts" page which should now display a list of your Salesforce.com contacts.  (Note: Developer Edition accounts have a few contacts out-of-the-box.)  Test that creating and deleting contacts also works.
 
-The application is already running on Heroku but in order for it to work properly you need to configure the `SFDC_OAUTH_CLIENT_ID` and `SFDC_OAUTH_CLIENT_SECRET` environment variables.  You will need to setup a new `Remote Access Application` on Salesforce.com that has the `Callback URL` for the application on Heroku.
+The application is already running on Heroku but in order for it to work properly you need to configure the `SFDC_OAUTH_CLIENT_ID` and `SFDC_OAUTH_CLIENT_SECRET` environment variables.  You will need to setup a new `Connected Application` on Salesforce.com that has the `Callback URL` for the application on Heroku.
 
 1. Login to [Salesforce.com](http://salesforce.com)
 2. Select your name in the top right and select `Setup`
-3. On the left, expand `Develop` and select `Remote Access`
-4. Select `New` to create a new Remote Access Application
+3. On the left, expand `Create` and select `Apps`
+4. Scroll down to `Connected Apps` and select `New`
 5. In the `Application` field enter `yourappname-spring` (replace `yourappname` with your app name)
 6. In the `Contact Email` field enter your email address
 7. Enter `https://yourappname.herokuapp.com/_auth` in the `Callback URL` field (replace `yourappname` with your app name and insure you use `https` for the protocol)
-8. Select `Save`
-9. Leave the `Remote Access Detail` page open because shortly you will need some information from it
+8. Select `Access and manage your data`, `Access your basic information` and `Perform requests on your behalf at any time` from the `Available OAuth Scopes` and use the `Add` buttom to move them to `Selected OAuth Scopes`:
+9. Select `Save`
+10. Leave the `Connected App Detail` page open because shortly you will need some information from it
 
 You now have a new `Consumer Key` and `Consumer Secret` that will be used for your app on Heroku.  Those values will need to be set as environment variables on your Heroku application.
 
 1. In the `My Heroku Applications` view in Eclipse select the application's context menu
 2. Select `App Info`
 3. Select the `Environment Variables` tab
-4. Select `+`
-5. In the `Key` field enter `SFDC_OAUTH_CLIENT_ID`
-6. Retrieve the `Consumer Key` value from the `Remote Access Detail` page on Salesforce.com then copy and paste it into the `Value` field
-7. Select `OK`
-8. Select `+`
+4. Select the `SFDC_OAUTH_CLIENT_ID` row
+5. Click 'Edit'
+6. Retrieve the `Consumer Key` value from the `Connected App Detail` page on Salesforce.com then copy and paste it into the `Value` field, overwriting the default value
+7. Select the `SFDC_OAUTH_CLIENT_SECRET` row
+8. Click 'Edit'
 9. In the `Key` field enter `SFDC_OAUTH_CLIENT_SECRET`
-10. Retrieve the `Consumer Secret` value from the `Remote Access Detail` page then copy and paste it into the `Value` field
+10. Retrieve the `Consumer Secret` value from the `Connected App Detail` page then copy and paste it into the `Value` field, overwriting the default value
 11. Select `OK`
 
 To test the application on Heroku navigate to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Opening the "Contacts" page should trigger the OAuth handshake and then display your contacts.
@@ -561,7 +568,7 @@ Now push your changes to Heroku
 
 1. In Eclipse select the project's context menu
 2. Select `Team`
-3. Select `Push to Upstream`
+3. Select `Push`
 
 Test the new version of the application on Heroku by navigating to `https://yourappname.herokuapp.com` in your browser (replace `yourappname` with your app name and insure you use `https` for the protocol).  Open the "Contacts" page and you should now see the new `Twitter` column.
 
@@ -577,7 +584,7 @@ Heroku's Dynos are meant to be used in a stateless fashion for instant scalabili
 2. Navigate to [https://addons.heroku.com/memcache](https://addons.heroku.com/memcache)
 3. Select `Add` for the free 5MB plan
 4. Select the application from the drop-down
-5. Select `Select`
+5. Select `+`
 6. In Eclipse open the `Procfile` and change line 1 to be:
 
         web:  java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT --session_manager memcache target/*.war
@@ -594,7 +601,7 @@ Now commit the changes to the local Git repository and push them to Heroku:
 5. Select `Commit`
 6. Select the project's context menu
 7. Select `Team`
-8. Select `Push to Upstream`
+8. Select `Push`
 
 Verify that your application still works on Heroku.
 
@@ -722,9 +729,9 @@ Now your application will display a message on the "Contacts" page each time som
 To configure PubNub you will need to add the PubNub Heroku Add-on then obtain and set the required environment variables:
 
 1. Navigate in your browser to [https://addons.heroku.com/pubnub](https://addons.heroku.com/pubnub)
-2. Select `Add` for the free "Minimal" level of service
+2. Select `Add` for the free "Pulse Sandbox" level of service
 3. Select your application from the drop-down
-4. Select `Select`
+4. Select `+`
 5. When the PubNub service has been installed, select PubNub from the list of resources in your application
 
 The `PUBLISH KEY`, `SUBSCRIBE KEY`, and `SECRET KEY` values will need to be added to your local runtime configuration and to your environment variables on Heroku.
@@ -781,7 +788,7 @@ Now deploy your changes:
 6. Select `Commit`
 7. Select the project's context menu
 8. Select `Team`
-9. Select `Push to Upstream`
+9. Select `Push`
 
 Verify that the real-time push notifications work in your application on Heroku.
 
@@ -798,7 +805,7 @@ Start by adding the New Relic Add-on:
 1. Navigate in your browser to [https://addons.heroku.com/newrelic](https://addons.heroku.com/newrelic)
 2. Select `Add` for the free "Standard" level of service
 3. Select your application from the drop-down
-4. Select `Select`
+4. Select `+`
 
 Now your application needs to be configured to use the New Relic Java agent:
 
@@ -816,7 +823,7 @@ Commit these new files to your Git repository and push the new version to Heroku
 5. Select `Commit`
 6. Select the project's context menu
 7. Select `Team`
-8. Select `Push to Upstream`
+8. Select `Push`
 
 You need to change the default `JAVA_OPTS` environment variable for your application to the Java process to use the New Relic Java agent.
 
@@ -848,9 +855,9 @@ Goals: This chapter will teach you how to add the Paptertrail Heroku Add-on to y
 To add the Papertrail Add-on:
 
 1. Navigate in your browser to [https://addons.heroku.com/papertrail](https://addons.heroku.com/papertrail)
-2. Select `Add` for the free "Test" level of service
+2. Select `Add` for the free "Choklad" level of service
 3. Select your application from the drop-down
-4. Select `Select`
+4. Select `+`
 5. Open the `Add-ons` drop-down for your application
 6. Select `Papertrail`
 
