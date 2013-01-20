@@ -31,7 +31,8 @@ Before you get started you will need to install these prerequisites:
             ssh -T heroku.com 22
             telnet heroku.com 22
 
-    2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com` (port 22).
+
+   *If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com` (port 22)*
 
 
 * Java SE 6 - JDK:
