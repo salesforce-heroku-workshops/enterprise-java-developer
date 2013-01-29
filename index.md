@@ -6,7 +6,7 @@ Heroku Enterprise Developer Workshop
     Document Date: July 16, 2012
     Document Home: http://enterprise-workshop.herokuapp.com
 
-[Download the PDF](workbook.pdf)
+[Download the PDF](index.pdf)
 
 This workshop will give you an introduction to building enterprise Java applications on Force.com and Heroku.
 
@@ -31,7 +31,8 @@ Before you get started you will need to install these prerequisites:
             ssh -T heroku.com 22
             telnet heroku.com 22
 
-    2. If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com` (port 22).
+
+   *If the connection is refused then you will need to ask your network administrators to open up SSH access to `heroku.com` (port 22)*
 
 
 * Java SE 6 - JDK:
@@ -43,7 +44,7 @@ Before you get started you will need to install these prerequisites:
 
     [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-* Eclipse 3.7 "Indigo" (Eclipse IDE for Java EE Developers): 
+* Eclipse 3.7 "Indigo" (Eclipse IDE for Java EE Developers):
 
      ![About Eclipse](about_eclipse.png)
 
