@@ -84,7 +84,6 @@ Now that you have everything installed you will need to configure the Heroku set
     2. Select `Preferences`
 
 * On Mac:
-
     1. In Eclipse select `Eclipse` from the menu bar
     2. Select `Preferences`
 
@@ -591,6 +590,16 @@ Heroku's Dynos are meant to be used in a stateless fashion for instant scalabili
 
     This enables `webapp-runner` to use the provisioned Memcache service for externalized session storage
 7. Save the file (From the Eclipse menu bar select `File` then select `Save`)
+8. In Eclipse open `src/main/resources/applicationContext.xml`, locate the line
+
+        <fss:oauth logout-url="/logout" default-logout-success="/">
+
+    and change it to
+
+        <fss:oauth logout-url="/logout" default-logout-success="/" store-data-in-session="true">
+
+    This tells the Force.com Java SDK to store user data in the session.
+9. Save the file (From the Eclipse menu bar select `File` then select `Save`)
 
 Now commit the changes to the local Git repository and push them to Heroku:
 
